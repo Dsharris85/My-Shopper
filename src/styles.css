@@ -1,0 +1,53 @@
+/* @font-face {
+    font-family: Stylescript;
+    src: url(assets/fonts/Style_Script/StyleScript-Regular.ttf) format('truetype');
+}
+
+;
+@font-face {
+    font-family: Yanone;
+    src: url(assets/fonts/Yanone_Kaffeesatz/YanoneKaffeesatz-VariableFont_wght.ttf) format('truetype');
+}
+
+; */
+
+html,
+body {
+    height: 100% !important;
+    margin: 0;
+}
+
+body {
+    height: 100% !important;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    /* font-family: 'Yanone Kaffeesatz', sans-serif; */
+    /* font-family: 'Style Script', cursive; */
+}
+
+.mat-tab-body-wrapper {
+    flex-grow: 1;
+}
+
+.mat-tab-group {
+    min-height: 90%;
+    height: 90%;
+}
+
+
+/* * {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+} */
+
+
+/* .style-font {
+    font-family: Stylescript;
+}
+
+.yanone-font {
+    font-family: Yanone;
+}
+
+body {
+    font-family: Stylescript;
+} */

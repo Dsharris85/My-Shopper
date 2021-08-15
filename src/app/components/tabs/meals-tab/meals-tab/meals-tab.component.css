@@ -1,0 +1,51 @@
+h3 {
+    /* text-align: center;
+    margin: 3rem;
+    font-size: 4rem;
+    font-family: 'Style Script', cursive; */
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 4rem;
+    line-height: 4rem;
+    font-family: 'Style Script', cursive;
+}
+
+mat-panel-title {
+    font-size: 1.2rem;
+    width: 30%;
+}
+
+mat-panel-description {
+    margin: 0;
+    width: 70%;
+}
+
+.ingredient {
+    font-size: 1rem;
+    display: list-item;
+    margin-left: 2rem;
+    line-height: 1.25rem;
+}
+
+.aun-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.acc-wrapper {
+    width: 60%;
+    border: 1px solid green;
+    margin: 2rem auto;
+}
+
+button {
+    transition: all .5s ease;
+}
+
+button:hover {
+    transform: scale(1.2);
+}
+
+.add-remove {
+    margin-top: 1rem;
+}

@@ -1,0 +1,63 @@
+<div class="background">
+</div>
+
+<div [ngClass]="!this.mobile ? 'main-tab-wrapper-large' : 'main-tab-wrapper-mobile'">
+    <mat-tab-group id="tab-group" animationDuration="250ms" mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4" style="height: 100%;">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">add_circle_outline</mat-icon>
+                <span *ngIf="!this.mobile">Add a new Meal/List</span>
+                <span *ngIf="this.mobile">New</span>
+            </ng-template>
+            <app-new-tab></app-new-tab>
+        </mat-tab>
+
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">receipt_long</mat-icon>
+                <span *ngIf="!this.mobile">View My Shopping Lists</span>
+                <span *ngIf="this.mobile">Lists</span>
+            </ng-template>
+            <app-lists-tab [mobileMode]="this.mobile"></app-lists-tab>
+        </mat-tab>
+
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">restaurant</mat-icon>
+                <span *ngIf="!this.mobile">View My Meals</span>
+                <span *ngIf="this.mobile">Meals</span>
+            </ng-template>
+            <app-meals-tab [mobileMode]="this.mobile"></app-meals-tab>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+
+
+<!-- 
+<div id="main-tab-wrapper">
+    <mat-tab-group id="tab-group" animationDuration="250ms" mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">add_circle_outline</mat-icon>
+                Add a new Meal/List
+            </ng-template>
+            <app-new-tab></app-new-tab>
+        </mat-tab>
+
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">receipt_long</mat-icon>
+                View My Shopping Lists
+            </ng-template>
+            <app-lists-tab></app-lists-tab>
+        </mat-tab>
+
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">restaurant</mat-icon>
+                View My Meals
+            </ng-template>
+            <app-meals-tab></app-meals-tab>
+        </mat-tab>
+    </mat-tab-group>
+</div> -->

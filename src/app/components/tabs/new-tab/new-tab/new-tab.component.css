@@ -1,0 +1,120 @@
+.main {
+    height: 95%;
+}
+
+#tab-group {
+    height: 95%;
+}
+
+#tab-group mat-tab-body {
+    flex-grow: 1;
+}
+
+.select-buttons {
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow: hidden;
+}
+
+.select-buttons button {
+    font-size: 1.25rem;
+    height: 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.input-field {
+    width: 50vw;
+}
+
+@media only screen and (max-width: 600px) {
+    .input-field {
+        width: 75vw;
+    }
+}
+
+h3 {
+    font-size: 3rem;
+    line-height: 3rem;
+    /* margin: 1rem; */
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    font-family: 'Style Script', cursive;
+    /* flex: 0.5; */
+}
+
+mat-form-field {
+    margin-bottom: 1rem;
+}
+
+.step-box {
+    height: calc(100vh - 400px);
+    display: flex;
+    flex-direction: column;
+}
+
+.add-remove {
+    margin: 1rem 0rem;
+}
+
+
+/* .form-flex {
+     flex: 1;
+} */
+
+.flex-bottom-buttons {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.aun-container {
+    overflow-y: auto;
+}
+
+.scroller {
+    margin-left: 1rem;
+    max-height: 75%;
+    overflow: auto;
+}
+
+.im-a-mat-stepper {
+    height: 100%;
+}
+
+mat-step {
+    height: 100% !important;
+}
+
+.mat-horizontal-content-container {
+    height: 100%;
+}
+
+.mat-horizontal-stepper-content {
+    height: 100%;
+    display: flex;
+}
+
+:host ::ng-deep .mat-horizontal-content-container {
+    height: 100%;
+}
+
+:host ::ng-deep .mat-horizontal-stepper-content {
+    height: 100%;
+    overflow: auto;
+}
+
+button {
+    transition: all .5s ease;
+}
+
+button:hover {
+    transform: scale(1.2);
+}

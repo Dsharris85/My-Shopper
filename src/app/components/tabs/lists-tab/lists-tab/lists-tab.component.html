@@ -1,0 +1,45 @@
+<h3>My Shopping Lists</h3>
+
+<div style="width: 60%; border: 1px solid green; margin: 2rem auto;">
+    <mat-accordion>
+
+        <mat-expansion-panel *ngFor="let list of this.allLists">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{list.name | titlecase}}
+                </mat-panel-title>
+                <mat-panel-description *ngIf="!this.mobileMode">
+                    {{list.description | titlecase}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div *ngFor="let meal of list.mealObjects;" class="meal">
+                <div *ngIf="meal">{{meal.name | titlecase}}</div>
+
+            </div>
+
+            <br><br>
+
+            <!-- <button mat-raised-button color="primary" aria-label="Open">
+                <a [routerLink]="['/shoppingList', list.id]">Open This List </a>
+            </button>
+            <button mat-raised-button color="accent" aria-label="Open">
+                <a [routerLink]="['/shoppingList', list.id]">Open This List </a>
+            </button> -->
+
+            <div style="margin-top: 2rem;">
+                <button mat-raised-button color="primary" aria-label="View" style="margin-right: 1rem;">
+                    <mat-icon>visibility</mat-icon>
+                    <a [routerLink]="['/shoppingList', list.id]">View This List </a>
+                </button>
+                <button mat-raised-button color="warn" aria-label="Remove" (click)="this.popupYesNo(list.id)">
+                    <mat-icon>remove_circle</mat-icon>
+                    Remove List
+                </button>
+            </div>
+
+
+        </mat-expansion-panel>
+
+    </mat-accordion>
+</div>

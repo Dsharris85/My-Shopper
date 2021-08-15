@@ -1,0 +1,17 @@
+<form [formGroup]="form">
+    <mat-form-field>
+        <mat-select placeholder="Number of winners to reward" (selectionChange)="selectNumber($event.value)">
+            <mat-option *ngFor="let emailNumber of totalEmailsNumber" [value]="emailNumber">
+                {{ emailNumber }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div formArrayName="mails">
+        <mat-form-field *ngFor="let email of form.get('mails')['controls']; let i = index">
+            <!-- <mat-form-field *ngFor="let email of form.controls['mails'].controls; let i = index"> -->
+            <textarea matInput [formControlName]="i">
+      </textarea>
+        </mat-form-field>
+    </div>
+</form>
