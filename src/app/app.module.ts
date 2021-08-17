@@ -35,6 +35,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatRippleModule} from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import { YesNoComponent } from './components/util/yes-no/yes-no.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { YesNoComponent } from './components/util/yes-no/yes-no.component';
     MatTooltipModule,
     MatRippleModule,
     MatDialogModule,
+    MatToolbarModule,
     // Defaults
     BrowserModule,
     AppRoutingModule,

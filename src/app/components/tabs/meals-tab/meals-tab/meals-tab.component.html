@@ -1,117 +1,118 @@
-<div class="acc-wrapper">
-    <h3 style="flex: 1;">My Meals</h3>
+<div style="display: flex;
+height: 100%;
+width: 100%;
+flex-direction: column;" class="animated-bg">
+    <div style="width: 60%; height: 100%; margin: 0 auto; background-color: white;">
+        <h3 style="    text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 4rem;
+            font-family: 'Style Script', cursive;
+            flex: none;
+            margin: 0;
+            height: 140px">My Meals</h3>
 
-    <!-- <mat-accordion style="flex: 1; overflow: auto; max-height: calc(100vh - 370px);"> -->
-    <mat-accordion>
-
-        <mat-expansion-panel #mep="matExpansionPanel" *ngFor="let meal of this.allMeals" (opened)="this.panelOpened(meal.id)" (closed)="this.panelClosed(meal.id)">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    {{meal.name | titlecase}}
-                </mat-panel-title>
-                <mat-panel-description *ngIf="!this.mobileMode">
-                    {{meal.description | titlecase}}
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-
-            <div *ngIf="!meal.editing">
-                <div *ngFor="let ingredient of meal.ingredients" class="ingredient">
-                    {{ingredient.unitAmount}} {{ingredient.unitLabel}} {{ingredient.name | titlecase}}
-                </div>
-
-                <div style="margin-top: 2rem;">
-                    <button mat-raised-button color="primary" aria-label="Edit" (click)="this.editMeal(meal.id)" style="margin-right: 1rem;">
-                        <mat-icon>edit</mat-icon>
-                        Edit Meal
-                    </button>
-                    <button mat-raised-button color="warn" aria-label="Remove" (click)="this.popupYesNo(meal.id)">
-                        <mat-icon>remove_circle</mat-icon>
-                        Remove Meal
-                    </button>
-                </div>
-            </div>
-            <div *ngIf="meal.editing">
-
-                <form [formGroup]="mealFormGroup">
-                    <ng-template matStepLabel>Basic Info</ng-template>
-                    <mat-form-field style="width: 300px;">
-                        <mat-label>Name</mat-label>
-                        <input #nameInput matInput placeholder="Chicken Kiev, Spaghetti & Meatballs, etc." formControlName="name" [(ngModel)]="meal.name">
-                        <mat-hint align="end">{{nameInput.value.length}} / 40</mat-hint>
-                    </mat-form-field>
-                    <br>
-                    <mat-form-field style="width: 390px;">
-                        <mat-label>Description</mat-label>
-                        <input #descriptionInput matInput placeholder="Describe this meal" formControlName="description" [(ngModel)]="meal.description">
-                        <mat-hint align="end">{{descriptionInput.value.length}} / 100</mat-hint>
-                    </mat-form-field>
-
-                    <br>
-
-                    <div class="add-remove">
-                        <button mat-raised-button aria-label="Remove" (click)="this.removeIngredient()" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
-                            <mat-icon>remove_circle</mat-icon>
-                            Remove Ingredient
-                        </button>
-                        <button mat-raised-button aria-label="Add" (click)="this.addIngredient()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
-                            <mat-icon>add_circle</mat-icon>
-                            Add Ingredient
-                        </button>
-                    </div>
-                    <!-- <div>
-                        <button mat-icon-button aria-label="Remove an ingredient" (click)="this.removeIngredient()">
-                            <mat-icon>remove_circle</mat-icon>
-                        </button>
-                        <button mat-icon-button aria-label="Add an ingredient" (click)="this.addIngredient()">
-                            <mat-icon>add_circle</mat-icon>
-                        </button>
-                    </div> -->
-
-                    <br>
-                    <br>
-
-                    <div class="aun-container">
-                        <div formArrayName="iAmount" style="display: grid; margin-right: 1rem; flex: 1;">
-                            <mat-form-field *ngFor="let ingredientAmt of mealFormGroup.get('iAmount')['controls']; let i = index">
-                                <mat-label>Amount</mat-label>
-                                <input matInput type="number" required [formControlName]="i">
-                            </mat-form-field>
+        <!-- <mat-accordion style="flex: 1; overflow: auto; max-height: calc(100vh - 370px);"> -->
+        <div style="height: calc(100% - 150px);
+        width: 90%;
+        overflow: auto;
+        margin: 0 auto;" [class.mat-elevation-z3]="true">
+            <mat-accordion>
+                <mat-expansion-panel #mep="matExpansionPanel" *ngFor="let meal of this.allMeals" (opened)="this.panelOpened(meal.id)" (closed)="this.panelClosed(meal.id)">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{meal.name | titlecase}}
+                        </mat-panel-title>
+                        <mat-panel-description *ngIf="!this.mobileMode">
+                            {{meal.description | titlecase}}
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div *ngIf="!meal.editing">
+                        <div *ngFor="let ingredient of meal.ingredients" class="ingredient">
+                            {{ingredient.unitAmount}} {{ingredient.unitLabel}} {{ingredient.name | titlecase}}
                         </div>
-                        <div formArrayName="iUnit" style="display: grid; margin-right: 1rem; flex: 2;">
-                            <mat-form-field *ngFor="let ingredientUnit of mealFormGroup.get('iUnit')['controls']; let i = index">
-                                <mat-label>Unit</mat-label>
-                                <select matNativeControl required [formControlName]="i">
-                                    <option *ngFor="let unit of this.enumKeys" value="{{this.unitLabels[unit]}}">{{unit}}</option>
-                                </select>
-                            </mat-form-field>
+                        <div style="margin-top: 2rem;">
+                            <button mat-raised-button color="primary" aria-label="Edit" (click)="this.editMeal(meal.id)" style="margin-right: 1rem;">
+                                <mat-icon>edit</mat-icon>
+                                Edit Meal
+                            </button>
+                            <button mat-raised-button color="warn" aria-label="Remove" (click)="this.popupYesNo(meal.id)">
+                                <mat-icon>remove_circle</mat-icon>
+                                Remove Meal
+                            </button>
                         </div>
-                        <div formArrayName="iName" style="display: grid; margin-right: 1rem; flex: 4;">
-                            <mat-form-field *ngFor="let ingredientName of mealFormGroup.get('iName')['controls']; let i = index">
-                                <mat-label>Ingredient Name</mat-label>
-                                <input matInput required [formControlName]="i">
+                    </div>
+                    <div *ngIf="meal.editing">
+                        <form [formGroup]="mealFormGroup">
+                            <ng-template matStepLabel>Basic Info</ng-template>
+                            <mat-form-field style="width: 300px;">
+                                <mat-label>Name</mat-label>
+                                <input #nameInput matInput placeholder="Chicken Kiev, Spaghetti & Meatballs, etc." formControlName="name" [(ngModel)]="meal.name">
+                                <mat-hint align="end">{{nameInput.value.length}} / 40</mat-hint>
                             </mat-form-field>
-                        </div>
-                        <br>
+                            <br>
+                            <mat-form-field style="width: 390px;">
+                                <mat-label>Description</mat-label>
+                                <input #descriptionInput matInput placeholder="Describe this meal" formControlName="description" [(ngModel)]="meal.description">
+                                <mat-hint align="end">{{descriptionInput.value.length}} / 100</mat-hint>
+                            </mat-form-field>
+                            <br>
+                            <div class="add-remove">
+                                <button mat-raised-button aria-label="Remove" (click)="this.removeIngredient()" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                                    <mat-icon>remove_circle</mat-icon>
+                                    Remove Ingredient
+                                </button>
+                                <button mat-raised-button aria-label="Add" (click)="this.addIngredient()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                                    <mat-icon>add_circle</mat-icon>
+                                    Add Ingredient
+                                </button>
+                            </div>
+                            <!-- <div>
+                                <button mat-icon-button aria-label="Remove an ingredient" (click)="this.removeIngredient()">
+                                    <mat-icon>remove_circle</mat-icon>
+                                </button>
+                                <button mat-icon-button aria-label="Add an ingredient" (click)="this.addIngredient()">
+                                    <mat-icon>add_circle</mat-icon>
+                                </button>
+                            </div> -->
+                            <br>
+                            <br>
+                            <div class="aun-container">
+                                <div formArrayName="iAmount" style="display: grid; margin-right: 1rem; flex: 1;">
+                                    <mat-form-field *ngFor="let ingredientAmt of mealFormGroup.get('iAmount')['controls']; let i = index">
+                                        <mat-label>Amount</mat-label>
+                                        <input matInput type="number" required [formControlName]="i">
+                                    </mat-form-field>
+                                </div>
+                                <div formArrayName="iUnit" style="display: grid; margin-right: 1rem; flex: 2;">
+                                    <mat-form-field *ngFor="let ingredientUnit of mealFormGroup.get('iUnit')['controls']; let i = index">
+                                        <mat-label>Unit</mat-label>
+                                        <select matNativeControl required [formControlName]="i">
+                                            <option *ngFor="let unit of this.enumKeys" value="{{this.unitLabels[unit]}}">{{unit}}</option>
+                                        </select>
+                                    </mat-form-field>
+                                </div>
+                                <div formArrayName="iName" style="display: grid; margin-right: 1rem; flex: 4;">
+                                    <mat-form-field *ngFor="let ingredientName of mealFormGroup.get('iName')['controls']; let i = index">
+                                        <mat-label>Ingredient Name</mat-label>
+                                        <input matInput required [formControlName]="i">
+                                    </mat-form-field>
+                                </div>
+                                <br>
+                            </div>
+                            <div>
+                                <button mat-raised-button color="primary" aria-label="Submit" (click)="this.submitEdit(meal.id)" style="margin-top: 2rem; margin-right: 1rem;">
+                                    Submit
+                                </button>
+                                <button mat-raised-button color="accent" aria-label="Cancel" (click)="this.cancelEdit(meal.id)">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
                     </div>
-
-                    <div>
-
-                        <button mat-raised-button color="primary" aria-label="Submit" (click)="this.submitEdit(meal.id)" style="margin-top: 2rem; margin-right: 1rem;">
-                            Submit
-                        </button>
-                        <button mat-raised-button color="accent" aria-label="Cancel" (click)="this.cancelEdit(meal.id)">
-                            Cancel
-                        </button>
-
-                    </div>
-                </form>
-
-
-            </div>
-
-
-
-        </mat-expansion-panel>
-
-    </mat-accordion>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
 </div>

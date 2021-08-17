@@ -1,10 +1,9 @@
-<mat-divider [vertical]="true"></mat-divider>
-
-<div class="main container">
+<div class="new-container animated-bg">
 
 
 
-    <div *ngIf="!this.meal && !this.list" class="select-buttons">
+    <div *ngIf="!this.meal && !this.list" class="select-buttons" style="background-color: white; height: 500px; width: 1000px; margin: auto;" [class.mat-elevation-z10]="true">
+
         <button mat-raised-button color="primary" (click)="this.onChooseMeal()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
             <span>New Meal</span><br><br>
             <mat-icon style="font-size: 2rem; height: 2rem; width: 2rem;">restaurant</mat-icon>
@@ -195,3 +194,7 @@
     </div>
 
 </div>
+
+<!-- <div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div> -->

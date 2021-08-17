@@ -38,3 +38,7 @@
 :host ::ng-deep .mat-tab-label {
     padding: 0;
 }
+
+:host ::ng-deep .mat-tab-header {
+    background-color: #bfd7ea;
+}
