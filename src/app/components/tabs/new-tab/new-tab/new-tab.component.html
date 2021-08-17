@@ -1,7 +1,5 @@
 <div class="new-container animated-bg">
 
-
-
     <div *ngIf="!this.meal && !this.list" class="select-buttons" style="background-color: white; height: 500px; width: 1000px; margin: auto;" [class.mat-elevation-z10]="true">
 
         <button mat-raised-button color="primary" (click)="this.onChooseMeal()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
@@ -107,6 +105,11 @@
             </mat-step>
 
             <mat-step>
+                <ng-template matStepLabel>Add Recipe</ng-template>
+
+            </mat-step>
+
+            <mat-step>
                 <ng-template matStepLabel>Done</ng-template>
                 <div style="display: flex; flex-direction: column; margin-left: 1rem;">
                     <h3>{{this.mealName | titlecase}}</h3>
@@ -118,6 +121,7 @@
                     </div>
                 </div>
             </mat-step>
+
         </mat-horizontal-stepper>
     </div>
 

@@ -25,6 +25,12 @@ body {
     animation: gradient 10s ease infinite;
 }
 
+.animated-bg-slow {
+    background: linear-gradient(-45deg, #0b3954, white, #bfd7ea, #0CA4A5, #0b3954, white, #f7d0e0, #0b3954);
+    background-size: 400% 400%;
+    animation: gradient 30s ease infinite;
+}
+
 @keyframes gradient {
     0% {
         background-position: 0% 50%;

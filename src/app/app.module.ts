@@ -36,6 +36,8 @@ import {MatRippleModule} from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import { YesNoComponent } from './components/util/yes-no/yes-no.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { EmptyErrorComponent } from './components/util/empty-error/empty-error.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     ShoppingViewComponent,
     HomeComponent,
     YesNoComponent,
+    EmptyErrorComponent,
   ],
   imports: [
     // Angular Materials
@@ -71,6 +74,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatRippleModule,
     MatDialogModule,
     MatToolbarModule,
+    MatMenuModule,
     // Defaults
     BrowserModule,
     AppRoutingModule,

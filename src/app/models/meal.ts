@@ -19,6 +19,7 @@ export interface Meal extends DBItem {
     // optionals
     description?: string;
     editing?: boolean;
+    recipe?: string[];
 }
 
 export interface Ingredient {
@@ -28,6 +29,7 @@ export interface Ingredient {
     
     // optionals
     unitLabel?: UnitLabel;
+    sectionOfStore?: StoreSection;
 
 }
 
@@ -45,4 +47,29 @@ export enum UnitLabel {
     Pint = 'p',
     Milligram = 'mg',
     Kilogram = 'kg',    
+}
+
+export enum Units2 {
+    Whole,
+    Gallon = "Gallon(s) of",
+    Pound = "Pound(s) of",
+    Liter = "Liter(s) of",
+    Milliliter = "Milliliter(s) of",
+    Ounce = "Ounce(s) of",
+    Can = "Can(s) of",
+    Cup = "Cup(s) of",
+    Pack = "Package(s) of",
+    Jar = "Jar(s) of",
+    Serving = "Serving(s) of",
+
+
+}
+
+export enum StoreSection {
+    Frozens,
+    Meat,
+    Breads,
+    Dairy,
+    Snacks,
+    AisleThings = "Aisle Things",
 }

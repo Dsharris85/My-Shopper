@@ -1,10 +1,6 @@
-<!-- <div class="main">
-    <a routerLink="">My Shopper</a>
-</div> -->
 
 <mat-toolbar color="primary">
-    <!-- <mat-toolbar color="primary" style="height: 5rem; display: flex;"> -->
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <button mat-icon-button class="example-icon" aria-label="Menu" [matMenuTriggerFor]="menu">
       <mat-icon>menu</mat-icon>
     </button>
     <span class="head">My Shopper</span>
@@ -16,3 +12,18 @@
       <mat-icon>share</mat-icon>
     </button> -->
 </mat-toolbar>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>dialpad</mat-icon>
+    <span>Themes (Coming soon)</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>voicemail</mat-icon>
+    <span>Item 2</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
+    <span>Item 3</span>
+  </button>
+</mat-menu>

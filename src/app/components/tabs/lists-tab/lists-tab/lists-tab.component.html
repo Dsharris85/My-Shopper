@@ -1,7 +1,7 @@
 <div style="display: flex;
 height: 100%;
 width: 100%;
-flex-direction: column;" class="animated-bg">
+flex-direction: column;" class="animated-bg-slow">
 
     <div style="width: 60%; height: 100%; margin: 0 auto; background-color: white;">
         <h3 style="    text-align: center;
@@ -17,6 +17,8 @@ flex-direction: column;" class="animated-bg">
         width: 90%;
         overflow: auto;
         margin: 0 auto;" [class.mat-elevation-z3]="true">
+
+            <app-empty-error *ngIf="this.allLists.length == 0" [emptyItem]="'shopping lists'"></app-empty-error>
             <mat-accordion>
                 <mat-expansion-panel *ngFor="let list of this.allLists">
                     <mat-expansion-panel-header>
