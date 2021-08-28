@@ -1,10 +1,11 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { MatListOption } from '@angular/material/list';
 import { Sort } from '@angular/material/sort';
-import { Meal, ShoppingList, UnitLabel } from 'src/app/models/meal';
+import { MatStepper } from '@angular/material/stepper';
+import { Meal, ShoppingList, StoreSection, UnitLabel } from 'src/app/models/meal';
 import { MealService } from 'src/app/services/meal.service';
 
 @Component({
@@ -17,13 +18,21 @@ import { MealService } from 'src/app/services/meal.service';
 })
 export class NewTabComponent implements OnInit {
 
+  @ViewChild('stepper') private myStepper: MatStepper;
+
+  @Input()
+  public mobileMode: boolean = false;
+
   public unitLabels = UnitLabel; 
   public enumKeys=[];
+
+  public sectionLabels = StoreSection; 
+  public enumSections=[];
 
   public meal: boolean = false;
   public list: boolean = false;
  
-  public totalIngredientsNumber: number[];
+  // public totalIngredientsNumber: number[];
 
   public mealName: string = "";
   public mealDescription: string = "";
@@ -42,15 +51,20 @@ export class NewTabComponent implements OnInit {
     description: ['', Validators.maxLength(100)]
   });
 
+  public recipeFormGroup: FormGroup = this._formBuilder.group({
+    steps: this._formBuilder.array([['', [Validators.maxLength(500), Validators.required]]]),
+  });
+
   public ingredientsFormGroup: FormGroup = this._formBuilder.group({
     iAmount: this._formBuilder.array([['', [Validators.maxLength(3), Validators.required]]]),
     iUnit: this._formBuilder.array(['']),
-    // iUnit: this._formBuilder.array([['']]),
     iName: this._formBuilder.array([['', [Validators.maxLength(40), Validators.required]]]),
+    iSection: this._formBuilder.array([['', [Validators.maxLength(40)]]]),
   });
 
   public newMeal: Meal = {
     ingredients: [],
+    recipe: [],
     name: null,
     id: null
   };
@@ -66,8 +80,14 @@ export class NewTabComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, private mealService: MealService) {
     this.enumKeys = Object.keys(this.unitLabels);
+    this.enumSections = Object.keys(this.sectionLabels);
   
-
+    // console.log('units');
+    // console.log(this.enumKeys)
+    // console.log(this.unitLabels)
+    // console.log('sections');
+    // console.log(this.unitLabels);
+    // console.log(this.sectionLabels);
   }
 
   ngOnInit() {       
@@ -80,11 +100,13 @@ export class NewTabComponent implements OnInit {
   
 
   public onChooseMeal(): void {
+    this.resetFormsAndValues();
     this.meal = true;
     this.list = false;
   }
 
   public onChooseList(): void {
+    this.resetFormsAndValues();
     this.list = true;
     this.meal = false;
   }
@@ -111,9 +133,30 @@ export class NewTabComponent implements OnInit {
     return (<FormArray>this.ingredientsFormGroup.get('iName'));
   }
 
-  selectNumber(emailNumbers) {
-    const difference = this.iUnit.length - emailNumbers;
+  get iSection() {
+    return (<FormArray>this.ingredientsFormGroup.get('iSection'));
+  }
+
+  get steps() {
+    return (<FormArray>this.recipeFormGroup.get('steps'));
+  }
+
+  selectNumber(numbers) {
+    const difference = this.iUnit.length - numbers;
     difference > 0 ? this.removeIngredients(difference) : this.addIngredients(difference);
+  }
+
+  selectNumberStepsRecipe(numbers){
+    const difference = this.steps.length - numbers;
+    difference > 0 ? this.removeSteps(difference) : this.addSteps
+    (difference);
+  }
+  
+  removeSteps(difference) {
+    this.createCustomLengthArray(difference)
+      .forEach(item => {
+        this.steps.removeAt(this.steps.length - 1);       
+      });
   }
 
   removeIngredients(difference) {
@@ -121,8 +164,18 @@ export class NewTabComponent implements OnInit {
       .forEach(item => {
         this.iUnit.removeAt(this.iUnit.length - 1);
         this.iName.removeAt(this.iUnit.length - 1);
+        this.iSection.removeAt(this.iUnit.length - 1);
         this.iAmount.removeAt(this.iUnit.length - 1);
       });
+  }
+
+  addSteps(difference){
+    this.createCustomLengthArray(difference)
+    .forEach(
+      item => {
+        this.steps.push(this._formBuilder.control(null));        
+      }
+    );
   }
 
   addIngredients(difference) {
@@ -130,6 +183,7 @@ export class NewTabComponent implements OnInit {
       .forEach(
         item => {
           this.iUnit.push(this._formBuilder.control(null));
+          this.iSection.push(this._formBuilder.control(null));
           this.iName.push(this._formBuilder.control(null, Validators.required));
           this.iAmount.push(this._formBuilder.control(null, Validators.required));
         }
@@ -146,9 +200,19 @@ export class NewTabComponent implements OnInit {
     this.selectNumber(this.iUnit.length+1);
   }
 
+  public addStep(): void {
+    this.selectNumberStepsRecipe(this.steps.length+1)
+  }
+
   public removeIngredient(): void {
     if(this.iUnit.length > 0) {
       this.selectNumber(this.iUnit.length-1);
+    }
+  }
+
+  public removeStep(): void {
+    if(this.steps.length > 0) {
+      this.selectNumberStepsRecipe(this.steps.length-1);
     }
   }
 
@@ -162,9 +226,14 @@ export class NewTabComponent implements OnInit {
     for (var i = 0; i < this.ingredientsFormGroup.value['iAmount'].length; i++){
       this.newMeal.ingredients.push({
         name: this.ingredientsFormGroup.value['iName'][i],
+        sectionOfStore: this.ingredientsFormGroup.value['iSection'][i],
         unitAmount: this.ingredientsFormGroup.value['iAmount'][i],
         unitLabel: this.ingredientsFormGroup.value['iUnit'][i]
       })
+    }
+
+    for (var i = 0; i< this.recipeFormGroup.value['steps'].length; i++){
+      this.newMeal.recipe.push(this.recipeFormGroup.value['steps'][i]);
     }
 
     this.mealService.saveNewMeal(this.newMeal);
@@ -230,9 +299,58 @@ export class NewTabComponent implements OnInit {
     // console.log(this.selectedMeals);
   }
 
+  public stepperGoTo(step: number): void {
+    this.myStepper.selectedIndex = step - 1;
+  }
 
+  public resetFormsAndValues(): void {
+    this.mealName = "";
+    this.mealDescription = "";
+    this.listName = "";
+    this.listDescription = "";
+  
+    this.selectedMeals = [];
+  
+    this.nameFormGroup = this._formBuilder.group({
+      name: ['', [Validators.required,  Validators.maxLength(40)]],
+      description: ['', Validators.maxLength(100)]
+    });
+  
+    this.listNameFormGroup = this._formBuilder.group({
+      name: ['', [Validators.required,  Validators.maxLength(40)]],
+      description: ['', Validators.maxLength(100)]
+    });
+  
+    this.recipeFormGroup = this._formBuilder.group({
+      steps: this._formBuilder.array([['', [Validators.maxLength(500), Validators.required]]]),
+    });
+  
+    this.ingredientsFormGroup = this._formBuilder.group({
+      iAmount: this._formBuilder.array([['', [Validators.maxLength(3), Validators.required]]]),
+      iUnit: this._formBuilder.array(['']),
+      iName: this._formBuilder.array([['', [Validators.maxLength(40), Validators.required]]]),
+      iSection: this._formBuilder.array([['', [Validators.maxLength(40)]]]),
+    });
+  
+    this.newMeal = {
+      ingredients: [],
+      recipe: [],
+      name: null,
+      id: null
+    };
+  
+    this.newList = {
+      name: null,
+      id: null,
+      meals: []
+    };
+  
+    this.allMeals = [];
+  
 
+  this.getAllMeals();
 
+  }
   // typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
 
 }

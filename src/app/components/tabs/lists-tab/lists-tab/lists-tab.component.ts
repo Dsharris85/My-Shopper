@@ -11,11 +11,11 @@ import { MealService } from 'src/app/services/meal.service';
 })
 export class ListsTabComponent implements OnInit {
 
-  public allLists: ShoppingList[] = []; // poop
-  public allMeals: Meal[] = []; // poop
+  public allLists: ShoppingList[] = []; 
+  public allMeals: Meal[] = []; 
 
   @Input()
-  public mobileMode: boolean; // poop
+  public mobileMode: boolean; 
 
   constructor(private mealService: MealService, public dialog: MatDialog) { }
 

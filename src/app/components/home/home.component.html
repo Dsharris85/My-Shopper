@@ -6,7 +6,7 @@
                 <span *ngIf="!this.mobile">Add a new Meal/List</span>
                 <span *ngIf="this.mobile">New</span>
             </ng-template>
-            <app-new-tab></app-new-tab>
+            <app-new-tab [mobileMode]="this.mobile"></app-new-tab>
         </mat-tab>
 
         <mat-tab>

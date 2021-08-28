@@ -66,10 +66,10 @@ export enum Units2 {
 }
 
 export enum StoreSection {
-    Frozens,
-    Meat,
-    Breads,
-    Dairy,
-    Snacks,
+    Frozens = "Frozens",
+    Meat = "Meat",
+    Breads = "Breads",
+    Dairy = "Dairy",
+    Snacks = "Snacks",
     AisleThings = "Aisle Things",
 }

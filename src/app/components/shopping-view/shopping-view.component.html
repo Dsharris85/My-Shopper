@@ -4,7 +4,6 @@
         <mat-selection-list [class.mat-elevation-z3]="true" #selector (selectionChange)="this.swapCheck(selector.selectedOptions.selected)" style="width: 90%; margin: 1rem auto; margin-top: 1rem;">
             <mat-list-option #option *ngFor="let ingredient of this.shoppingList">
                 <div [ngClass]="option.selected ? 'checked' : 'unchecked'">{{ingredient.unitAmount}} {{ingredient.unitLabel || ''}} {{ingredient.name | titlecase}}</div>
-                <!-- <div [ngStyle]="{'text-decoration': (option.selected) ? 'line-through' : 'none'}">{{ingredient.unitAmount}} {{ingredient.unitLabel || ''}} {{ingredient.name}} {{option.selected}}</div> -->
             </mat-list-option>
         </mat-selection-list>
 

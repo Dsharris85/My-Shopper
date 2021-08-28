@@ -20,12 +20,29 @@
     overflow: hidden;
 }
 
+.select-home {
+    background-color: white;
+     height: 500px; 
+    width: 80%;
+     margin: auto;
+     display: flex;
+     flex-direction: row;
+     justify-content: space-evenly;
+     align-items: center;
+}
+
+
 .select-buttons button {
     font-size: 1.25rem;
     height: 8rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+}
+
+.main-btns {
+    width: 100px;
 }
 
 .input-field {
@@ -35,6 +52,12 @@
 @media only screen and (max-width: 600px) {
     .input-field {
         width: 75vw;
+    }
+    .select-home {
+        flex-direction: column;
+    }
+    .main-btns {
+        width: 200px;
     }
 }
 
@@ -53,13 +76,20 @@ mat-form-field {
 }
 
 .step-box {
-    height: calc(100vh - 400px);
+    /* height: calc(100vh - 400px); */
+    height: 100%;
     display: flex;
     flex-direction: column;
+    /* border: 1px solid red; */
 }
 
 .add-remove {
     margin: 1rem 0rem;
+}
+
+.add-remove-mobile {
+    margin-bottom: 1rem;
+    display: flex;
 }
 
 
@@ -78,12 +108,12 @@ mat-form-field {
 .aun-container {
     overflow-y: auto;
 }
-
+/* 
 .scroller {
     margin-left: 1rem;
     max-height: 75%;
     overflow: auto;
-}
+} */
 
 .im-a-mat-stepper {
     height: 100%;
@@ -160,3 +190,19 @@ button:hover {
 .bg3 {
     animation-duration: 5s;
 }
+
+
+
+
+/* ::ng-deep .mat-stepper-horizontal .mat-horizontal-stepper-header {
+    padding: 10px;
+    height:auto;
+    color: red;
+    background-color: green;
+}
+::ng-deep .mat-stepper-horizontal .mat-stepper-horizontal-line {
+    margin: 0 -4px; 
+    color: hotpink;
+    background-color: magenta;
+    width: 5px;
+} */

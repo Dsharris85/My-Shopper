@@ -49,3 +49,51 @@ button:hover {
 .add-remove {
     margin-top: 1rem;
 }
+
+.div-big {
+    width: 70%; 
+    height: 100%; 
+    margin: 0 auto; 
+    background-color: white;
+}
+
+.div-mobile {
+    width: 98%; 
+    height: 100%; 
+    margin: 0 auto; 
+    background-color: white;
+
+}
+
+.meal-header {
+    text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 4rem;
+            font-family: 'Style Script', cursive;
+            flex: none;
+            margin: 0;
+            height: 140px
+}
+
+.edit-window-mobile {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: space-between;
+    height: 140px;
+}
+
+.edit-window {
+    margin-top: 2rem;
+}
+
+.edit-btn-mobile {
+    width: 80%;
+    margin: 0 auto;
+}
+.edit-btn {
+margin-right: 1rem;
+}

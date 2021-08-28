@@ -38,6 +38,7 @@ import { YesNoComponent } from './components/util/yes-no/yes-no.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { EmptyErrorComponent } from './components/util/empty-error/empty-error.component';
 import {MatMenuModule} from '@angular/material/menu';
+import { MealViewComponent } from './components/meal-view/meal-view.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import {MatMenuModule} from '@angular/material/menu';
     HomeComponent,
     YesNoComponent,
     EmptyErrorComponent,
+    MealViewComponent,
   ],
   imports: [
     // Angular Materials

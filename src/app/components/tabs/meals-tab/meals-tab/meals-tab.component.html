@@ -2,16 +2,9 @@
 height: 100%;
 width: 100%;
 flex-direction: column;" class="animated-bg-slow">
-    <div style="width: 60%; height: 100%; margin: 0 auto; background-color: white;">
-        <h3 style="    text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            font-size: 4rem;
-            font-family: 'Style Script', cursive;
-            flex: none;
-            margin: 0;
-            height: 140px">My Meals</h3>
+    <div [ngClass]="{'div-big': !this.mobileMode,
+    'div-mobile': this.mobileMode}">
+        <h3 class="meal-header">My Meals</h3>
 
         <!-- <mat-accordion style="flex: 1; overflow: auto; max-height: calc(100vh - 370px);"> -->
         <div style="height: calc(100% - 150px);
@@ -23,27 +16,52 @@ flex-direction: column;" class="animated-bg-slow">
                 <mat-expansion-panel #mep="matExpansionPanel" *ngFor="let meal of this.allMeals" (opened)="this.panelOpened(meal.id)" (closed)="this.panelClosed(meal.id)">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            {{meal.name | titlecase}}
+                            <div style="white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;">
+                                {{meal.name | titlecase}}
+                            </div>
                         </mat-panel-title>
                         <mat-panel-description *ngIf="!this.mobileMode">
-                            {{meal.description | titlecase}}
+                            <div style="white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;">
+                                {{meal.description | titlecase}}
+                            </div>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
+
                     <div *ngIf="!meal.editing">
-                        <div *ngFor="let ingredient of meal.ingredients" class="ingredient">
-                            {{ingredient.unitAmount}} {{ingredient.unitLabel}} {{ingredient.name | titlecase}}
+                        <div style="display: flex; width: 100%; justify-content: space-evenly;" [ngStyle]="{'flex-direction': (this.mobileMode) ? 'column' : 'row'}">
+                            <div  [ngStyle]="{'width': (this.mobileMode) ? '100%' : '30%'}">
+                                <div *ngFor="let ingredient of meal.ingredients" class="ingredient">
+                                    {{ingredient.unitAmount}} {{ingredient.unitLabel}} {{ingredient.name | titlecase}}
+                                </div>
+                            </div>
+                            <div  [ngStyle]="{'width': (this.mobileMode) ? '100%' : '70%'}">
+                                <div *ngFor="let step of meal.recipe; let i = index;" >
+                                    <div style="text-align: center; font-weight: bold; font-family: 'Style Script', cursive; font-size: 1.5rem; margin-bottom: 0.5rem;">Step {{i+1}}:</div>
+                                    <div class="ingredient">{{step}}</div>
+                                    <br>
+                                </div>
+                            </div>
                         </div>
-                        <div style="margin-top: 2rem;">
-                            <button mat-raised-button color="primary" aria-label="Edit" (click)="this.editMeal(meal.id)" style="margin-right: 1rem;">
+                        <div [ngClass]="this.mobileMode ? 'edit-window-mobile' : 'edit-window'">
+                            <button mat-raised-button color="primary" aria-label="Edit" (click)="this.editMeal(meal.id)" [ngClass]="this.mobileMode ? 'edit-btn-mobile' : 'edit-btn'">
                                 <mat-icon>edit</mat-icon>
                                 Edit Meal
                             </button>
-                            <button mat-raised-button color="warn" aria-label="Remove" (click)="this.popupYesNo(meal.id)">
+                            <button mat-raised-button color="accent" aria-label="Edit"  [ngClass]="this.mobileMode ? 'edit-btn-mobile' : 'edit-btn'">
+                                <mat-icon>visibility</mat-icon>
+                                <a [routerLink]="['/meal', meal.id]">View Meal </a>
+                            </button>
+                            <button mat-raised-button color="warn" aria-label="Remove" (click)="this.popupYesNo(meal.id)" [ngClass]="this.mobileMode ? 'edit-btn-mobile' : 'edit-btn'">
                                 <mat-icon>remove_circle</mat-icon>
                                 Remove Meal
                             </button>
                         </div>
                     </div>
+
                     <div *ngIf="meal.editing">
                         <form [formGroup]="mealFormGroup">
                             <ng-template matStepLabel>Basic Info</ng-template>

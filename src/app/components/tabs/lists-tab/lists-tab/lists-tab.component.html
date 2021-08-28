@@ -3,7 +3,8 @@ height: 100%;
 width: 100%;
 flex-direction: column;" class="animated-bg-slow">
 
-    <div style="width: 60%; height: 100%; margin: 0 auto; background-color: white;">
+    <div [ngClass]="{'div-big': !this.mobileMode,
+    'div-mobile': this.mobileMode}">
         <h3 style="    text-align: center;
         display: flex;
         flex-direction: column;
@@ -11,12 +12,12 @@ flex-direction: column;" class="animated-bg-slow">
         font-size: 4rem;
         font-family: 'Style Script', cursive;
         flex: none;
-        margin: 0;
-        height: 140px">My Shopping Lists</h3>
-        <div style="height: calc(100% - 150px);
-        width: 90%;
+        height: 140px"
+        [ngStyle]="{'padding': this.mobileMode ? '1rem 0rem' : '0'}">My Shopping Lists</h3>
+        <div style=" width: 90%;
         overflow: auto;
-        margin: 0 auto;" [class.mat-elevation-z3]="true">
+        margin: 0 auto;" [class.mat-elevation-z3]="true" 
+        [ngStyle]="{'height': !this.mobileMode ? 'calc(100% - 200px)' : 'calc(100% - 200px)'}">
 
             <app-empty-error *ngIf="this.allLists.length == 0" [emptyItem]="'shopping lists'"></app-empty-error>
             <mat-accordion>

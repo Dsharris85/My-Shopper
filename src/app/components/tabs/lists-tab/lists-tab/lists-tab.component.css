@@ -34,3 +34,18 @@ button {
 button:hover {
     transform: scale(1.2);
 }
+
+.div-big {
+    width: 70%; 
+    height: 100%; 
+    margin: 0 auto; 
+    background-color: white;
+}
+
+.div-mobile {
+    width: 98%; 
+    height: 100%; 
+    margin: 0 auto; 
+    background-color: white;
+
+}
