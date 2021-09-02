@@ -11,40 +11,28 @@ import { MealService } from 'src/app/services/meal.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  public mealList: ShoppingList = {
-    name: null,
-    meals: null,
-    id: null
-  };
-
-  public id: string;
-  private routeSub: Subscription;
-  
-  constructor(private _Activatedroute:ActivatedRoute, private mealService: MealService, private router: Router) { 
+  constructor(private router: Router) { 
     
   }
 
   ngOnInit(): void {
-    // this.router.events.subscribe(val=> {
-    //   if (val instanceof NavigationEnd) {
-    //   let curUrlTree: UrlTree = this.router.parseUrl(this.router.url);
-    //   this.id = curUrlTree.root.children.primary.segments[1].path;
-    //   }
-    // });   
+ 
   }
 
   ngOnDestroy() {
-    // this.routeSub.unsubscribe();
   }
 
   public refresh(): void {
-    // console.log(`this id = ${this.id}`);
-    // this.router.navigate(['']);
-    // if(this.id){
-    //   this.router.navigate(['']);
-    // } else {
-    // }
     window.location.reload();
+  }
+
+  public cleanHomePage(): void {
+    // TODO: will get out of hand, need to do this better :P
+    if(window.location.href.includes('meal') || window.location.href.includes('shoppingList') ){
+      this.router.navigate([''])
+    } else {
+      this.refresh();
+    }
   }
 
 }

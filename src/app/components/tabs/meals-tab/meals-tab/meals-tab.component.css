@@ -58,7 +58,7 @@ button:hover {
 }
 
 .div-mobile {
-    width: 98%; 
+    width: 100%; 
     height: 100%; 
     margin: 0 auto; 
     background-color: white;
@@ -96,4 +96,33 @@ button:hover {
 }
 .edit-btn {
 margin-right: 1rem;
+}
+
+.header-norm {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 4rem;
+    line-height: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Style Script', cursive;
+    flex: none;
+    height: 140px;
+    padding: 0;
+}
+
+.header-mobile {
+    text-align: center;
+    /* margin-top: 2rem; */
+    font-size: 3rem;
+    /* line-height: 4rem; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Style Script', cursive;
+    flex: none;
+    height: 80px;
+    padding: 0;
+    margin: 0;
 }

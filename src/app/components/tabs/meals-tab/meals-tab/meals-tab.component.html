@@ -4,13 +4,13 @@ width: 100%;
 flex-direction: column;" class="animated-bg-slow">
     <div [ngClass]="{'div-big': !this.mobileMode,
     'div-mobile': this.mobileMode}">
-        <h3 class="meal-header">My Meals</h3>
+        <h3 [ngClass]="this.mobileMode ? 'header-mobile' : 'header-norm'">My Meals</h3>
 
         <!-- <mat-accordion style="flex: 1; overflow: auto; max-height: calc(100vh - 370px);"> -->
-        <div style="height: calc(100% - 150px);
-        width: 90%;
+        <div style="width: 90%;
         overflow: auto;
-        margin: 0 auto;" [class.mat-elevation-z3]="true">
+        margin: 0 auto;" [class.mat-elevation-z3]="true"
+        [ngStyle]="{'height': (this.mobileMode) ? 'calc(100% - 100px)' : 'calc(100% - 150px)'}">
             <app-empty-error *ngIf="this.allMeals.length == 0" [emptyItem]="'shopping lists'"></app-empty-error>
             <mat-accordion>
                 <mat-expansion-panel #mep="matExpansionPanel" *ngFor="let meal of this.allMeals" (opened)="this.panelOpened(meal.id)" (closed)="this.panelClosed(meal.id)">
@@ -38,12 +38,16 @@ flex-direction: column;" class="animated-bg-slow">
                                     {{ingredient.unitAmount}} {{ingredient.unitLabel}} {{ingredient.name | titlecase}}
                                 </div>
                             </div>
-                            <div  [ngStyle]="{'width': (this.mobileMode) ? '100%' : '70%'}">
-                                <div *ngFor="let step of meal.recipe; let i = index;" >
+                            <br><br>    
+                            <mat-divider></mat-divider>
+                            <div  [ngStyle]="{'width': (this.mobileMode) ? '100%' : '70%'}" *ngIf="meal.recipe[0] != ''">
+                                <div *ngFor="let step of meal.recipe; let i = index;" style="margin-top: 2rem;">
                                     <div style="text-align: center; font-weight: bold; font-family: 'Style Script', cursive; font-size: 1.5rem; margin-bottom: 0.5rem;">Step {{i+1}}:</div>
                                     <div class="ingredient">{{step}}</div>
                                     <br>
                                 </div>
+                                <br>
+                                <mat-divider></mat-divider>
                             </div>
                         </div>
                         <div [ngClass]="this.mobileMode ? 'edit-window-mobile' : 'edit-window'">
@@ -53,7 +57,7 @@ flex-direction: column;" class="animated-bg-slow">
                             </button>
                             <button mat-raised-button color="accent" aria-label="Edit"  [ngClass]="this.mobileMode ? 'edit-btn-mobile' : 'edit-btn'">
                                 <mat-icon>visibility</mat-icon>
-                                <a [routerLink]="['/meal', meal.id]">View Meal </a>
+                                <a [routerLink]="['/meal', meal.id]" style="color: black;">View Meal </a>
                             </button>
                             <button mat-raised-button color="warn" aria-label="Remove" (click)="this.popupYesNo(meal.id)" [ngClass]="this.mobileMode ? 'edit-btn-mobile' : 'edit-btn'">
                                 <mat-icon>remove_circle</mat-icon>
@@ -67,13 +71,13 @@ flex-direction: column;" class="animated-bg-slow">
                             <ng-template matStepLabel>Basic Info</ng-template>
                             <mat-form-field style="width: 300px;">
                                 <mat-label>Name</mat-label>
-                                <input #nameInput matInput placeholder="Chicken Kiev, Spaghetti & Meatballs, etc." formControlName="name" [(ngModel)]="meal.name">
+                                <input autocomplete="off" #nameInput matInput placeholder="Chicken Kiev, Spaghetti & Meatballs, etc." formControlName="name" [(ngModel)]="meal.name">
                                 <mat-hint align="end">{{nameInput.value.length}} / 40</mat-hint>
                             </mat-form-field>
                             <br>
                             <mat-form-field style="width: 390px;">
                                 <mat-label>Description</mat-label>
-                                <input #descriptionInput matInput placeholder="Describe this meal" formControlName="description" [(ngModel)]="meal.description">
+                                <input autocomplete="off" #descriptionInput matInput placeholder="Describe this meal" formControlName="description" [(ngModel)]="meal.description">
                                 <mat-hint align="end">{{descriptionInput.value.length}} / 100</mat-hint>
                             </mat-form-field>
                             <br>
@@ -101,7 +105,7 @@ flex-direction: column;" class="animated-bg-slow">
                                 <div formArrayName="iAmount" style="display: grid; margin-right: 1rem; flex: 1;">
                                     <mat-form-field *ngFor="let ingredientAmt of mealFormGroup.get('iAmount')['controls']; let i = index">
                                         <mat-label>Amount</mat-label>
-                                        <input matInput type="number" required [formControlName]="i">
+                                        <input autocomplete="off" matInput type="number" required [formControlName]="i">
                                     </mat-form-field>
                                 </div>
                                 <div formArrayName="iUnit" style="display: grid; margin-right: 1rem; flex: 2;">
@@ -115,7 +119,7 @@ flex-direction: column;" class="animated-bg-slow">
                                 <div formArrayName="iName" style="display: grid; margin-right: 1rem; flex: 4;">
                                     <mat-form-field *ngFor="let ingredientName of mealFormGroup.get('iName')['controls']; let i = index">
                                         <mat-label>Ingredient Name</mat-label>
-                                        <input matInput required [formControlName]="i">
+                                        <input autocomplete="off" matInput required [formControlName]="i">
                                     </mat-form-field>
                                 </div>
                                 <br>

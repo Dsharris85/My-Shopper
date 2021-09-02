@@ -33,7 +33,7 @@ export interface Ingredient {
 
 }
 
-export enum UnitLabel {
+export enum UnitLabel2 {
     Quart = 'qt',
     Cup = 'c',
     Gallon = 'g',
@@ -49,8 +49,8 @@ export enum UnitLabel {
     Kilogram = 'kg',    
 }
 
-export enum Units2 {
-    Whole,
+export enum UnitLabel {
+    Whole = "Whole",
     Gallon = "Gallon(s) of",
     Pound = "Pound(s) of",
     Liter = "Liter(s) of",
@@ -70,6 +70,7 @@ export enum StoreSection {
     Meat = "Meat",
     Breads = "Breads",
     Dairy = "Dairy",
+    FruitVeg = "Fruit and Veggies",
     Snacks = "Snacks",
     AisleThings = "Aisle Things",
 }

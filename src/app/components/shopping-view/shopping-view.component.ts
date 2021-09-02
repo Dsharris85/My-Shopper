@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MatListOption } from '@angular/material/list';
 import { ActivatedRoute } from '@angular/router';
-import { Ingredient, ShoppingList } from 'src/app/models/meal';
+import { Ingredient, ShoppingList, StoreSection } from 'src/app/models/meal';
 import { MealService } from 'src/app/services/meal.service';
 
 @Component({
@@ -12,6 +12,8 @@ import { MealService } from 'src/app/services/meal.service';
 export class ShoppingViewComponent implements OnInit {
 
   constructor(private _Activatedroute:ActivatedRoute, private mealService: MealService){ }
+
+  public storeSections = StoreSection;
 
   public mealList: ShoppingList;
   public shoppingList: Ingredient[] = [];
@@ -36,11 +38,15 @@ export class ShoppingViewComponent implements OnInit {
   }
   
   ngOnInit(): void {
+
+    //TODO: 1 liter of milk + 1 cup of milk = figure out... gotta keep in 1 unit
+
+
     this._Activatedroute.paramMap.subscribe(params => { 
       console.log(`paramsOG`, params);
       this.mealList = this.mealService.getList(params.get('id'));
 
-      console.log(`params =${params.get('id')}`);
+      //console.log(`params =${params.get('id')}`);
 
       this.mealList.mealObjects = [];
 
@@ -91,5 +97,11 @@ export class ShoppingViewComponent implements OnInit {
     // console.log(`selectedMeals`);
     // console.log(this.selectedMeals);
   } 
+
+  public getSections(section: StoreSection): Ingredient[] {
+    console.log("section:", section)
+    // premake on init, and just grab so don't need filter everytime
+    return this.shoppingList.filter(ingredient => ingredient.sectionOfStore == section);
+  }
 
 }

@@ -1,9 +1,9 @@
 
-<mat-toolbar color="primary">
-    <button mat-icon-button class="example-icon" aria-label="Menu" [matMenuTriggerFor]="menu">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span class="head">My Shopper</span>
+<mat-toolbar color="primary" style="display: flex; justify-content: space-between;">
+  <span class="head" (click)="this.cleanHomePage()">My Shopper</span>
+  <button mat-icon-button class="example-icon" aria-label="Menu" [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
     <!-- <span class="example-spacer"></span>
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
       <mat-icon>favorite</mat-icon>
@@ -20,7 +20,7 @@
   </button>
   <button mat-menu-item disabled>
     <mat-icon>voicemail</mat-icon>
-    <span>Item 2</span>
+    <span>Import/Export Data (Coming soon)</span>
   </button>
   <button mat-menu-item>
     <mat-icon>notifications_off</mat-icon>

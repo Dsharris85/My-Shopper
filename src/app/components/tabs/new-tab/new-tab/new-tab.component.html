@@ -20,16 +20,16 @@
 
                 <form [formGroup]="nameFormGroup" style="height: 100%; display: flex; flex-direction: column;">
                     <ng-template matStepLabel *ngIf="!this.mobileMode">Basic Info</ng-template>
-                    <br><br>
-                    <mat-form-field class="input-field">
-                        <mat-label>Meal Name</mat-label>
-                        <input #nameInput matInput placeholder="Chicken Kiev, Spaghetti & Meatballs, etc." formControlName="name" [(ngModel)]="this.mealName">
-                        <mat-hint align="end">{{nameInput.value.length}} / 40</mat-hint>
-                    </mat-form-field>
                     <br>
                     <mat-form-field class="input-field">
+                        <mat-label>Meal Name</mat-label>
+                        <input autocomplete="off" #nameInput matInput placeholder="Chicken Kiev, Spaghetti & Meatballs, etc." formControlName="name" [(ngModel)]="this.mealName">
+                        <mat-hint align="end">{{nameInput.value.length}} / 40</mat-hint>
+                    </mat-form-field>
+                    <!-- <br *ngIf="this.mobileMode"> -->
+                    <mat-form-field class="input-field">
                         <mat-label>Meal Description</mat-label>
-                        <input #descriptionInput matInput placeholder="Describe this meal" formControlName="description" [(ngModel)]="this.mealDescription">
+                        <input autocomplete="off" #descriptionInput matInput placeholder="Describe this meal" formControlName="description" [(ngModel)]="this.mealDescription">
                         <mat-hint align="end">{{descriptionInput.value.length}} / 100</mat-hint>
                     </mat-form-field>
                     <div style="height:100%; justify-content: flex-end; margin-bottom: 1rem; display: flex; flex-direction: column; margin-left: 1rem;">
@@ -45,24 +45,31 @@
 
             </mat-step>
 
-            <mat-step [stepControl]="ingredientsFormGroup" errorMessage="Error" class="im-a-mat-stepper">
+            <mat-step [stepControl]="ingredientsFormGroup" errorMessage="Error" class="im-a-mat-stepper" style="border: 1px solid blue;">
                 <ng-template matStepLabel *ngIf="!this.mobileMode">Add Ingredients</ng-template>
 
-                <div class="step-box">
-                    <h3 [ngStyle]="{'margin': !this.mobileMode ? '0 0 .5rem 0;' : '1rem 0 2rem 0;'}">{{this.mealName | titlecase}}</h3>
+                <div class="step-box" style="border: 1px solid green;">
+                    <h3 [ngClass]="{'step-header': !this.mobileMode, 'step-header-mobile': this.mobileMode}">{{this.mealName | titlecase}}</h3>
 
                     <div [ngClass]="{'add-remove': !this.mobileMode, 'add-remove-mobile': this.mobileMode}">
-                        <button mat-raised-button aria-label="Remove" (click)="this.removeIngredient()" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                        <button *ngIf="!this.mobileMode" mat-raised-button aria-label="Remove" (click)="this.removeIngredient()" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
                             <mat-icon>remove_circle</mat-icon>
                             <div *ngIf="!this.mobileMode">Remove Ingredient</div>
                         </button>
-                        <button mat-raised-button aria-label="Add" (click)="this.addIngredient()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                        <button *ngIf="!this.mobileMode" mat-raised-button aria-label="Add" (click)="this.addIngredient()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
                             <mat-icon>add_circle</mat-icon>
                             <div *ngIf="!this.mobileMode">Add Ingredient</div>
                         </button>
+                        <button *ngIf="this.mobileMode" mat-icon-button aria-label="Remove ingredient" (click)="this.removeIngredient()" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                            <mat-icon>remove_circle</mat-icon>
+                        </button>
+                        <button *ngIf="this.mobileMode" mat-icon-button aria-label="Remove ingredient" (click)="this.addIngredient()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                            <mat-icon>add_circle</mat-icon>
+                        </button>
                     </div>
 
-
+                    position: absolute;
+                    bottom: 1rem;
                     <form [formGroup]="ingredientsFormGroup" class="form-flex scroller" style="max-height: 300px;
                     overflow: auto;
                     border: 1px solid red;">
@@ -70,21 +77,21 @@
                             <div formArrayName="iAmount" style="display: grid; padding-right: 1rem;">
                                 <mat-form-field *ngFor="let ingredientAmt of ingredientsFormGroup.get('iAmount')['controls']; let i = index" style="width: 100px;">
                                     <mat-label>Amount</mat-label>
-                                    <input matInput type="number" required [formControlName]="i">
+                                    <input autocomplete="off" matInput type="number" required [formControlName]="i">
                                 </mat-form-field>
                             </div>
-                            <div formArrayName="iUnit" style="display: grid; padding-right: 1rem;">
+                            <div formArrayName="iUnit" style="display: grid; padding-right: 1rem;" [ngStyle]="{'width': (this.mobileMode) ? '100px' : 'auto'}">
                                 <mat-form-field *ngFor="let ingredientUnit of ingredientsFormGroup.get('iUnit')['controls']; let i = index" style="width: 100px;">
                                     <mat-label>Unit</mat-label>
                                     <select matNativeControl [formControlName]="i">
-                                        <option *ngFor="let unit of this.enumKeys" value="{{this.unitLabels[unit]}}">{{unit}}</option>
+                                        <option *ngFor="let unit of this.enumKeys" value="{{unit}}">{{this.unitLabels[unit]}}</option>
                                     </select>
                                 </mat-form-field>
                             </div>
                             <div formArrayName="iSection" style="display: grid; padding-right: 1rem;">
                                 <mat-form-field *ngFor="let section of ingredientsFormGroup.get('iSection')['controls']; let i = index" style="width: 100%">
                                     <mat-label>Section</mat-label>
-                                    <select matNativeControl [formControlName]="i">
+                                    <select matNativeControl [formControlName]="i" required>
                                         <option *ngFor="let section of this.enumSections" value="{{this.sectionLabels[section]}}">{{this.sectionLabels[section]}}</option>
                                     </select>
                                 </mat-form-field>
@@ -92,7 +99,7 @@
                             <div formArrayName="iName" style="display: grid;">
                                 <mat-form-field *ngFor="let ingredientName of ingredientsFormGroup.get('iName')['controls']; let i = index" style="width: 100%">
                                     <mat-label>Ingredient Name</mat-label>
-                                    <input matInput required [formControlName]="i">
+                                    <input autocomplete="off" matInput required [formControlName]="i">
                                 </mat-form-field>
                             </div>
                             
@@ -103,8 +110,9 @@
                         <p>Go Back, or Select 'Next' when you've entered all your ingredients</p>
                         <div>
                             <button mat-raised-button color="accent" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.resetFormsAndValues(); this.resetChoice()">Reset</button>
-                            <button mat-raised-button color="primary" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.stepperGoTo(4)">Next</button>
-                            <button mat-raised-button color="primary" matStepperNext matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" [ngStyle]="{'margin-top': !this.mobileMode ? '0rem' : '1rem'}">Recipe (Optional)</button>
+                            <button mat-raised-button color="primary" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.stepperGoTo(4)" *ngIf="!this.mobileMode">Next</button>
+                            <button mat-raised-button color="primary" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.stepperGoTo(3)" *ngIf="this.mobileMode">Next</button>
+                            <button mat-raised-button color="primary" matStepperNext matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" [ngStyle]="{'margin-top': !this.mobileMode ? '0rem' : '1rem'}" *ngIf="!this.mobileMode">Recipe (Optional)</button>
                         </div>
                     </div>
                 </div>
@@ -135,7 +143,7 @@
                             <div formArrayName="steps" style="display: grid; margin-right: 1rem; width: 100%;">
                                 <mat-form-field *ngFor="let step of this.recipeFormGroup.get('steps')['controls']; let i = index" >
                                     <mat-label>Step {{i + 1}}:</mat-label>
-                                    <input #recipe matInput type="text" [formControlName]="i">
+                                    <input autocomplete="off" #recipe matInput type="text" [formControlName]="i">
                                     <mat-hint align="end">{{recipe.value.length}} / 500</mat-hint>
                                 </mat-form-field>
                             </div>
@@ -178,18 +186,19 @@
         <mat-horizontal-stepper #stepper style="height: 100%;" [disableRipple]="false" fxLayout="column" fxFlex="100" fxLayoutAlign=" stretch">
             <mat-step [stepControl]="listNameFormGroup" errorMessage="Error.">
                 <ng-template matStepLabel>Basic Info</ng-template>
-                <br><br>
+                
+                
                 <form [formGroup]="listNameFormGroup" style="height: 100%; display: flex; flex-direction: column;">
                     <ng-template matStepLabel>List Name</ng-template>
                     <mat-form-field class="input-field">
                         <mat-label>Name</mat-label>
-                        <input #listNameInput matInput placeholder="Tuesday Dinner, Weekly Trip, etc." formControlName="name" [(ngModel)]="this.listName">
+                        <input autocomplete="off" #listNameInput matInput placeholder="Tuesday Dinner, Weekly Trip, etc." formControlName="name" [(ngModel)]="this.listName">
                         <mat-hint align="end">{{listNameInput.value.length}} / 40</mat-hint>
                     </mat-form-field>
                     <br>
                     <mat-form-field class="input-field">
                         <mat-label>Description</mat-label>
-                        <input #listDescriptionInput matInput placeholder="Describe this list" formControlName="description" [(ngModel)]="this.listDescription">
+                        <input autocomplete="off" #listDescriptionInput matInput placeholder="Describe this list" formControlName="description" [(ngModel)]="this.listDescription">
                         <mat-hint align="end">{{listDescriptionInput.value.length}} / 100</mat-hint>
                     </mat-form-field>
 
