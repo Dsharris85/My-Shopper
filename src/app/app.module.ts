@@ -39,6 +39,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { EmptyErrorComponent } from './components/util/empty-error/empty-error.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { MealViewComponent } from './components/meal-view/meal-view.component';
+import { NewMealPopupComponent } from './components/tabs/new-meal-popup/new-meal-popup.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { MealViewComponent } from './components/meal-view/meal-view.component';
     YesNoComponent,
     EmptyErrorComponent,
     MealViewComponent,
+    NewMealPopupComponent,
   ],
   imports: [
     // Angular Materials

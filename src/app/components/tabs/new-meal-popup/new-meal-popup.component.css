@@ -1,0 +1,14 @@
+.head {
+    text-align: center;
+    /* margin-top: 2rem; */
+    font-size: 2rem;
+    /* line-height: 4rem; */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    font-family: 'Style Script', cursive !important;
+    /* flex: none; */
+    /* height: 80px; */
+    padding: 0;
+    margin: 0;
+}

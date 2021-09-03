@@ -1,0 +1,46 @@
+<h3 class="head">New Ingredient</h3>
+
+<br>
+<!-- 
+<form class="example-form"> -->
+
+    <mat-form-field>
+        <mat-label>Ingredient Name</mat-label>
+        <input autocomplete="off" matInput required [(ngModel)]="this.ingredientName">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Amount</mat-label>
+        <input autocomplete="off" matInput type="number" required [(ngModel)]="this.ingredientAmount">
+    </mat-form-field>
+
+     <mat-form-field >
+        <mat-label>Unit</mat-label>
+        <mat-select (selectionChange)="this.unitChanged($event)">   
+            <mat-option *ngFor="let unit of this.enumKeys" [value]="unit">{{this.unitLabels[unit]}}</mat-option>
+        </mat-select>        
+    </mat-form-field>
+
+    <mat-form-field >
+        <mat-label>Store Section</mat-label>
+        <mat-select (selectionChange)="this.sectionChanged($event)">   
+            <mat-option *ngFor="let section of this.enumSections" [value]="section">{{this.sectionLabels[section]}}</mat-option>
+        </mat-select>        
+    </mat-form-field>
+
+     <!--<mat-form-field >
+        <mat-label>Section</mat-label>
+        <select matNativeControl  required>
+            <option *ngFor="let section of this.enumSections" value="{{this.sectionLabels[section]}}"  [(ngModel)]="this.ingredientSection">{{this.sectionLabels[section]}}</option>
+        </select>
+    </mat-form-field> -->
+
+    <button mat-raised-button color="primary" style="margin-top: 1rem;" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.addIngredient()">Submit</button>
+    <button mat-raised-button color="accent" style="margin-top: 1rem; margin-left: 1rem;" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" mat-dialog-close>Cancel</button>
+    
+  
+    
+  
+<!--   
+   
+  </form> -->

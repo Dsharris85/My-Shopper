@@ -17,7 +17,6 @@
     <div *ngIf="this.meal" style="height: 100%;">
         <mat-horizontal-stepper #stepper style="height: 100%; width: 100%; color: blueviolet; padding: 0rem;" [disableRipple]="false" fxLayout="column" fxFlex="100" fxLayoutAlign=" stretch">
             <mat-step [stepControl]="nameFormGroup" errorMessage="Error." class="im-a-mat-stepper">
-
                 <form [formGroup]="nameFormGroup" style="height: 100%; display: flex; flex-direction: column;">
                     <ng-template matStepLabel *ngIf="!this.mobileMode">Basic Info</ng-template>
                     <br>
@@ -42,15 +41,14 @@
                         <br>
                     </div>
                 </form>
-
             </mat-step>
 
-            <mat-step [stepControl]="ingredientsFormGroup" errorMessage="Error" class="im-a-mat-stepper" style="border: 1px solid blue;">
-                <ng-template matStepLabel *ngIf="!this.mobileMode">Add Ingredients</ng-template>
-
-                <div class="step-box" style="border: 1px solid green;">
+            <mat-step [stepControl]="ingredientsFormGroup" errorMessage="Error" class="im-a-mat-stepper">
+                
+                <div *ngIf="!this.mobileMode" class="step-box" style="border: 1px solid green;">
                     <h3 [ngClass]="{'step-header': !this.mobileMode, 'step-header-mobile': this.mobileMode}">{{this.mealName | titlecase}}</h3>
-
+                    
+                    
                     <div [ngClass]="{'add-remove': !this.mobileMode, 'add-remove-mobile': this.mobileMode}">
                         <button *ngIf="!this.mobileMode" mat-raised-button aria-label="Remove" (click)="this.removeIngredient()" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
                             <mat-icon>remove_circle</mat-icon>
@@ -68,11 +66,10 @@
                         </button>
                     </div>
 
-                    position: absolute;
-                    bottom: 1rem;
                     <form [formGroup]="ingredientsFormGroup" class="form-flex scroller" style="max-height: 300px;
                     overflow: auto;
                     border: 1px solid red;">
+                    <ng-template matStepLabel *ngIf="!this.mobileMode">Add Ingredients</ng-template>
                         <div class="aun-container" style="display: flex;">
                             <div formArrayName="iAmount" style="display: grid; padding-right: 1rem;">
                                 <mat-form-field *ngFor="let ingredientAmt of ingredientsFormGroup.get('iAmount')['controls']; let i = index" style="width: 100px;">
@@ -115,6 +112,131 @@
                             <button mat-raised-button color="primary" matStepperNext matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" [ngStyle]="{'margin-top': !this.mobileMode ? '0rem' : '1rem'}" *ngIf="!this.mobileMode">Recipe (Optional)</button>
                         </div>
                     </div>
+                </div>
+
+                <div *ngIf="this.mobileMode" style="height: 100%;">
+                    <div class="mobile-step2">
+                        <h3 [ngClass]="{'step-header': !this.mobileMode, 'step-header-mobile': this.mobileMode}" style="height: 10%;">{{this.mealName | titlecase}}</h3>
+                        <!-- <div [ngClass]="{'add-remove': !this.mobileMode, 'add-remove-mobile': this.mobileMode}">
+                            <button *ngIf="!this.mobileMode" mat-raised-button aria-label="Remove" (click)="this.removeIngredient()" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                                <mat-icon>remove_circle</mat-icon>
+                                <div *ngIf="!this.mobileMode">Remove Ingredient</div>
+                            </button>
+                            <button *ngIf="!this.mobileMode" mat-raised-button aria-label="Add" (click)="this.addIngredient()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                                <mat-icon>add_circle</mat-icon>
+                                <div *ngIf="!this.mobileMode">Add Ingredient</div>
+                            </button>
+                            <button *ngIf="this.mobileMode" mat-icon-button aria-label="Remove ingredient" (click)="this.removeIngredient()" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                                <mat-icon>remove_circle</mat-icon>
+                            </button>
+                            <button *ngIf="this.mobileMode" mat-icon-button aria-label="Remove ingredient" (click)="this.addIngredient()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                                <mat-icon>add_circle</mat-icon>
+                            </button>
+                        </div> -->
+                       
+                        <div *ngIf="this.newMeal.ingredients.length == 0" style="height: 70%;">
+                            <button mat-button style="width: 100%; margin-top: 3rem;" (click)="this.popupNewMealDialog()">
+                                <mat-icon>add_circle</mat-icon>
+                                New Meal
+                            </button>
+                        </div>
+                        <div *ngIf="this.newMeal.ingredients.length > 0" style="height: 10%;">
+                            <button mat-button style="width: 100%;" (click)="this.popupNewMealDialog()">
+                                <mat-icon>add_circle</mat-icon>
+                                New Meal
+                            </button>
+                        </div>
+                        <mat-list role="list" style="height: 60%; overflow: auto; padding: 0;" *ngIf="this.newMeal.ingredients.length > 0">
+                            <mat-list-item *ngFor="let ingredient of this.newMeal.ingredients">
+                                <mat-icon mat-list-icon>menu</mat-icon>
+                                <div mat-line>{{ingredient.unitAmount}} {{ingredient.unitLabel}} {{ingredient.name}}</div>
+                                <div mat-line>{{this.sectionLabels[ingredient.sectionOfStore] | titlecase}} </div>
+                              </mat-list-item>
+                        </mat-list>
+                        <!-- <form [formGroup]="ingredientsFormGroup" class="form-flex scroller" style="max-height: 300px;
+                        overflow: auto;">
+                        
+                        </form> -->
+
+                        <!-- <button mat-raised-button (click)="openDialog()" *ngIf="this.newMeal.ingredients.length == 0">Pick one</button> -->
+                        
+
+                        <div class="flex-bottom-buttons" >
+                            <p>Go Back, or Select 'Next' when you've entered all your ingredients</p>
+                            <div>
+                                <button mat-raised-button color="accent" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.resetFormsAndValues(); this.resetChoice()">Reset</button>
+                                <button mat-raised-button color="primary" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.stepperGoTo(4)" *ngIf="!this.mobileMode">Next</button>
+                                <button mat-raised-button color="primary" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.stepperGoTo(3)" *ngIf="this.mobileMode">Next</button>
+                                <button mat-raised-button color="primary" matStepperNext matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" [ngStyle]="{'margin-top': !this.mobileMode ? '0rem' : '1rem'}" *ngIf="!this.mobileMode">Recipe (Optional)</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- add popup for each one added -->
+                    <!-- <h3 [ngClass]="{'step-header': !this.mobileMode, 'step-header-mobile': this.mobileMode}">{{this.mealName | titlecase}}</h3>
+
+                    <div [ngClass]="{'add-remove': !this.mobileMode, 'add-remove-mobile': this.mobileMode}">
+                        <button *ngIf="!this.mobileMode" mat-raised-button aria-label="Remove" (click)="this.removeIngredient()" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                            <mat-icon>remove_circle</mat-icon>
+                            <div *ngIf="!this.mobileMode">Remove Ingredient</div>
+                        </button>
+                        <button *ngIf="!this.mobileMode" mat-raised-button aria-label="Add" (click)="this.addIngredient()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                            <mat-icon>add_circle</mat-icon>
+                            <div *ngIf="!this.mobileMode">Add Ingredient</div>
+                        </button>
+                        <button *ngIf="this.mobileMode" mat-icon-button aria-label="Remove ingredient" (click)="this.removeIngredient()" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                            <mat-icon>remove_circle</mat-icon>
+                        </button>
+                        <button *ngIf="this.mobileMode" mat-icon-button aria-label="Remove ingredient" (click)="this.addIngredient()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                            <mat-icon>add_circle</mat-icon>
+                        </button>
+                    </div>
+            
+                    <form [formGroup]="ingredientsFormGroup" class="form-flex scroller" style="max-height: 300px;
+                    overflow: auto;">
+                    <ng-template matStepLabel *ngIf="!this.mobileMode">Add Ingredients</ng-template>
+                        <div class="aun-container" style="display: flex;">
+                            <div formArrayName="iAmount" style="display: grid; padding-right: 1rem;">
+                                <mat-form-field *ngFor="let ingredientAmt of ingredientsFormGroup.get('iAmount')['controls']; let i = index" style="width: 100px;">
+                                    <mat-label>Amount</mat-label>
+                                    <input autocomplete="off" matInput type="number" required [formControlName]="i">
+                                </mat-form-field>
+                            </div>
+                            <div formArrayName="iUnit" style="display: grid; padding-right: 1rem;" [ngStyle]="{'width': (this.mobileMode) ? '100px' : 'auto'}">
+                                <mat-form-field *ngFor="let ingredientUnit of ingredientsFormGroup.get('iUnit')['controls']; let i = index" style="width: 100px;">
+                                    <mat-label>Unit</mat-label>
+                                    <select matNativeControl [formControlName]="i">
+                                        <option *ngFor="let unit of this.enumKeys" value="{{unit}}">{{this.unitLabels[unit]}}</option>
+                                    </select>
+                                </mat-form-field>
+                            </div>
+                            <div formArrayName="iSection" style="display: grid; padding-right: 1rem;">
+                                <mat-form-field *ngFor="let section of ingredientsFormGroup.get('iSection')['controls']; let i = index" style="width: 100%">
+                                    <mat-label>Section</mat-label>
+                                    <select matNativeControl [formControlName]="i" required>
+                                        <option *ngFor="let section of this.enumSections" value="{{this.sectionLabels[section]}}">{{this.sectionLabels[section]}}</option>
+                                    </select>
+                                </mat-form-field>
+                            </div>
+                            <div formArrayName="iName" style="display: grid;">
+                                <mat-form-field *ngFor="let ingredientName of ingredientsFormGroup.get('iName')['controls']; let i = index" style="width: 100%">
+                                    <mat-label>Ingredient Name</mat-label>
+                                    <input autocomplete="off" matInput required [formControlName]="i">
+                                </mat-form-field>
+                            </div>
+                            
+                        </div>
+                        <div class="flex-bottom-buttons" style="margin-left: 1rem;">
+                            <p>Go Back, or Select 'Next' when you've entered all your ingredients</p>
+                            <div>
+                                <button mat-raised-button color="accent" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.resetFormsAndValues(); this.resetChoice()">Reset</button>
+                                <button mat-raised-button color="primary" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.stepperGoTo(4)" *ngIf="!this.mobileMode">Next</button>
+                                <button mat-raised-button color="primary" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.stepperGoTo(3)" *ngIf="this.mobileMode">Next</button>
+                                <button mat-raised-button color="primary" matStepperNext matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" [ngStyle]="{'margin-top': !this.mobileMode ? '0rem' : '1rem'}" *ngIf="!this.mobileMode">Recipe (Optional)</button>
+                            </div>
+                        </div>
+                    </form> -->
+
                 </div>
 
             </mat-step>

@@ -1,12 +1,14 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { MatListOption } from '@angular/material/list';
 import { Sort } from '@angular/material/sort';
 import { MatStepper } from '@angular/material/stepper';
 import { Meal, ShoppingList, StoreSection, UnitLabel } from 'src/app/models/meal';
 import { MealService } from 'src/app/services/meal.service';
+import { NewMealPopupComponent } from '../../new-meal-popup/new-meal-popup.component';
 
 @Component({
   selector: 'app-new-tab',
@@ -40,6 +42,8 @@ export class NewTabComponent implements OnInit {
   public listDescription: string = "";
 
   public selectedMeals: string[] = [];
+
+  
 
   public nameFormGroup: FormGroup = this._formBuilder.group({
     name: ['', [Validators.required,  Validators.maxLength(40)]],
@@ -78,7 +82,7 @@ export class NewTabComponent implements OnInit {
   public allMeals: Meal[] = [];
 
 
-  constructor(private _formBuilder: FormBuilder, private mealService: MealService) {
+  constructor(private _formBuilder: FormBuilder, private mealService: MealService, public dialog: MatDialog) {
     this.enumKeys = Object.keys(this.unitLabels);
     this.enumSections = Object.keys(this.sectionLabels);
   
@@ -223,13 +227,17 @@ export class NewTabComponent implements OnInit {
       this.newMeal.description = this.mealDescription;
     }
 
-    for (var i = 0; i < this.ingredientsFormGroup.value['iAmount'].length; i++){
-      this.newMeal.ingredients.push({
-        name: this.ingredientsFormGroup.value['iName'][i],
-        sectionOfStore: this.ingredientsFormGroup.value['iSection'][i],
-        unitAmount: this.ingredientsFormGroup.value['iAmount'][i],
-        unitLabel: this.ingredientsFormGroup.value['iUnit'][i]
-      })
+    if(!this.mobileMode){
+        for (var i = 0; i < this.ingredientsFormGroup.value['iAmount'].length; i++){
+        this.newMeal.ingredients.push({
+          name: this.ingredientsFormGroup.value['iName'][i],
+          sectionOfStore: this.ingredientsFormGroup.value['iSection'][i],
+          unitAmount: this.ingredientsFormGroup.value['iAmount'][i],
+          unitLabel: this.ingredientsFormGroup.value['iUnit'][i]
+        })
+      }
+    } else {
+
     }
 
     for (var i = 0; i< this.recipeFormGroup.value['steps'].length; i++){
@@ -350,6 +358,22 @@ export class NewTabComponent implements OnInit {
 
   this.getAllMeals();
 
+  }
+
+  public popupNewMealDialog(): void {
+    const dialogRef = this.dialog.open(NewMealPopupComponent, {
+      width: '300px',
+      // data: {name: this.name, animal: this.animal}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+
+      var newMeal = result.ingredient;
+      this.newMeal.ingredients.push(newMeal);
+      // this.animal = result;
+    });
   }
   // typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
 
