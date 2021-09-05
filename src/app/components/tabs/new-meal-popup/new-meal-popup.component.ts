@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { Ingredient, StoreSection, UnitLabel } from 'src/app/models/meal';
+import { autocomplete, FoodAutocompleteService } from 'src/app/services/food-autocomplete.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-new-meal-popup',
@@ -9,6 +11,15 @@ import { Ingredient, StoreSection, UnitLabel } from 'src/app/models/meal';
   styleUrls: ['./new-meal-popup.component.css']
 })
 export class NewMealPopupComponent implements OnInit {
+
+  public term$ = new BehaviorSubject<string>('');
+  public results$: Observable<any> = this.term$.pipe(
+        autocomplete(300, (term => this.fetchTerm(term)))
+  )
+
+  fetchTerm(term: string): Observable<any> {
+    return this.autoCompleteService.getMatches(term, 5);
+  }
 
   public unitLabels = UnitLabel; 
   public enumKeys=[];
@@ -21,7 +32,9 @@ export class NewMealPopupComponent implements OnInit {
   public ingredientLabel: UnitLabel = this.unitLabels.Whole;
   public ingredientSection: StoreSection = this.sectionLabels.Frozens;
 
-  constructor(public dialogRef: MatDialogRef<NewMealPopupComponent>) {
+  @ViewChild('iName') input:ElementRef; 
+  // @ViewChild('iName')abc: string;
+  constructor(public dialogRef: MatDialogRef<NewMealPopupComponent>, private autoCompleteService: FoodAutocompleteService) {
     this.enumKeys = Object.keys(this.unitLabels);
     this.enumSections = Object.keys(this.sectionLabels);
    }
@@ -30,8 +43,9 @@ export class NewMealPopupComponent implements OnInit {
   }
 
   public addIngredient(): void {
+    console.log(this.input);
     var newIngredient: Ingredient = {
-      name: this.ingredientName,
+      name: this.input.nativeElement.value,
       unitAmount: this.ingredientAmount,
       unitLabel: this.ingredientLabel,
       sectionOfStore: this.ingredientSection
@@ -50,5 +64,9 @@ export class NewMealPopupComponent implements OnInit {
     // console.log('changed unit')
     // console.log(event)
     this.ingredientSection = event.value;
+  }
+
+  public inputChange(change: any): void {
+    this.term$.next(change.value)
   }
 }

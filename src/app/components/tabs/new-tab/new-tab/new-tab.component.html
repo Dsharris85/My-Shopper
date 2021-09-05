@@ -31,8 +31,8 @@
                         <input autocomplete="off" #descriptionInput matInput placeholder="Describe this meal" formControlName="description" [(ngModel)]="this.mealDescription">
                         <mat-hint align="end">{{descriptionInput.value.length}} / 100</mat-hint>
                     </mat-form-field>
-                    <div style="height:100%; justify-content: flex-end; margin-bottom: 1rem; display: flex; flex-direction: column; margin-left: 1rem;">
-                        <p style="margin-top: 2rem;">Select 'Next' when you are finished, or choose 'Back' to start over.</p>
+                    <div *ngIf="!this.mobileMode" style="height:100%; justify-content: flex-end; margin-bottom: 1rem; display: flex; flex-direction: column; margin-left: 1rem;">
+                        <p style="margin-top: 2rem;" *ngIf="!this.mobileMode">Select 'Next' when you are finished, or choose 'Back' to start over.</p>
                         <div>
                             <button mat-raised-button color="accent" (click)="this.resetFormsAndValues(); this.resetChoice()" style="margin-right: 2rem;" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">Reset</button>
                             <!-- <button mat-raised-button color="accent" (click)="this.resetChoice()" style="margin-right: 2rem;" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">Back</button> -->
@@ -104,7 +104,7 @@
                     </form>
 
                     <div class="flex-bottom-buttons" style="margin-left: 1rem;">
-                        <p>Go Back, or Select 'Next' when you've entered all your ingredients</p>
+                        <p *ngIf="!this.mobileMode">Go Back, or Select 'Next' when you've entered all your ingredients</p>
                         <div>
                             <button mat-raised-button color="accent" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.resetFormsAndValues(); this.resetChoice()">Reset</button>
                             <button mat-raised-button color="primary" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.stepperGoTo(4)" *ngIf="!this.mobileMode">Next</button>
@@ -147,8 +147,8 @@
                             </button>
                         </div>
                         <mat-list role="list" style="height: 60%; overflow: auto; padding: 0;" *ngIf="this.newMeal.ingredients.length > 0">
-                            <mat-list-item *ngFor="let ingredient of this.newMeal.ingredients">
-                                <mat-icon mat-list-icon>menu</mat-icon>
+                            <mat-list-item *ngFor="let ingredient of this.newMeal.ingredients; let i = index">
+                                <mat-icon mat-list-icon [matMenuTriggerFor]="menu" [matMenuTriggerData]="{data: ingredient, index: i}">menu</mat-icon>
                                 <div mat-line>{{ingredient.unitAmount}} {{ingredient.unitLabel}} {{ingredient.name}}</div>
                                 <div mat-line>{{this.sectionLabels[ingredient.sectionOfStore] | titlecase}} </div>
                               </mat-list-item>
@@ -161,15 +161,15 @@
                         <!-- <button mat-raised-button (click)="openDialog()" *ngIf="this.newMeal.ingredients.length == 0">Pick one</button> -->
                         
 
-                        <div class="flex-bottom-buttons" >
-                            <p>Go Back, or Select 'Next' when you've entered all your ingredients</p>
+                        <!-- <div class="flex-bottom-buttons" >
+                            <p *ngIf="!this.mobileMode">Go Back, or Select 'Next' when you've entered all your ingredients</p>
                             <div>
                                 <button mat-raised-button color="accent" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.resetFormsAndValues(); this.resetChoice()">Reset</button>
                                 <button mat-raised-button color="primary" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.stepperGoTo(4)" *ngIf="!this.mobileMode">Next</button>
                                 <button mat-raised-button color="primary" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.stepperGoTo(3)" *ngIf="this.mobileMode">Next</button>
                                 <button mat-raised-button color="primary" matStepperNext matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" [ngStyle]="{'margin-top': !this.mobileMode ? '0rem' : '1rem'}" *ngIf="!this.mobileMode">Recipe (Optional)</button>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- add popup for each one added -->
@@ -243,8 +243,9 @@
 
             <mat-step [stepControl]="recipeFormGroup" errorMessage="Error" class="im-a-mat-stepper">
                 <ng-template matStepLabel *ngIf="!this.mobileMode">Add Recipe</ng-template>
-                <div class="step-box">
-                    <h3>{{this.mealName | titlecase}}</h3>
+
+                <div class="step-box" *ngIf="!this.mobileMode">
+                    <h3 style="width: 100%; text-align: end;">Recipe</h3>
 
                     <div class="add-remove">
                         <button mat-raised-button aria-label="Remove" (click)="this.removeStep()" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
@@ -282,9 +283,98 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div style="height: 100%; border: 1px solid red;">
 
-                </div> -->
+                <!-- <form *ngIf="this.mobileMode" [formGroup]="recipeFormGroup" style="height: 100%; display: flex; flex-direction: column;">
+                    <h3 class="step-header-mobile" style="height: 5rem;">Recipe</h3>
+           
+                   
+                    <div class="aun-container" style="display: flex; border: 1px solid red; height: 55%;">
+                        <div formArrayName="steps" style="display: grid; margin-right: 1rem; width: 100%;">
+                            <mat-form-field *ngFor="let step of this.recipeFormGroup.get('steps')['controls']; let i = index" >
+                                <mat-label>Step {{i + 1}}:</mat-label>
+                                <input autocomplete="off" #recipe matInput type="text" [formControlName]="i">
+                                <mat-hint align="end">{{recipe.value.length}} / 500</mat-hint>
+                            </mat-form-field>
+                        </div>   
+                        
+                        
+                    </div>
+
+                    <div class="add-remove">
+                        <button mat-raised-button aria-label="Remove" (click)="this.removeStep()" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                            <mat-icon>remove_circle</mat-icon>
+                            Remove Step
+                        </button>
+                        <button mat-raised-button aria-label="Add" (click)="this.addStep()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                            <mat-icon>add_circle</mat-icon>
+                            Add Step
+                        </button>
+                    </div>
+
+                    <div style="border: 1px solid green; height:100%; justify-content: flex-end; margin-bottom: 1rem; display: flex; flex-direction: column;">
+                        <p style="margin-top: 2rem;">Select 'Next' when you are finished, or choose 'Back' to start over.</p>
+                        <div>
+                            <button mat-raised-button color="accent" (click)="this.resetFormsAndValues(); this.resetChoice()" style="margin-right: 2rem;" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">Reset</button>
+                            <button mat-raised-button color="primary" (click)="this.stepperGoTo(4)" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">Next</button>
+                        </div>
+                        <br>
+                    </div>
+                </form> -->
+                <form [formGroup]="recipeFormGroup" style="height: 100%;
+                display: flex;
+                flex-direction: column;" *ngIf="this.mobileMode">
+                    <div style="display: flex; justify-content: space-between; height: 4rem; border: 1px solid red;">
+                        <button mat-button aria-label="Remove" (click)="this.removeStep()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                            <mat-icon>remove_circle</mat-icon>
+                            Step
+                        </button>
+                        <button mat-button aria-label="Add" (click)="this.addStep()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                            <mat-icon>add_circle</mat-icon>
+                            Step
+                        </button>
+                        <h3>Recipe</h3>
+                    </div>                    
+                    <!-- <mat-form-field class="input-field">
+                        <mat-label>Meal Name</mat-label>
+                        <input autocomplete="off" #nameInput matInput placeholder="Chicken Kiev, Spaghetti & Meatballs, etc." formControlName="name" [(ngModel)]="this.mealName">
+                        <mat-hint align="end">{{nameInput.value.length}} / 40</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field class="input-field">
+                        <mat-label>Meal Name</mat-label>
+                        <input autocomplete="off" #nameInput matInput placeholder="Chicken Kiev, Spaghetti & Meatballs, etc." formControlName="name" [(ngModel)]="this.mealName">
+                        <mat-hint align="end">{{nameInput.value.length}} / 40</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field class="input-field">
+                        <mat-label>Meal Name</mat-label>
+                        <input autocomplete="off" #nameInput matInput placeholder="Chicken Kiev, Spaghetti & Meatballs, etc." formControlName="name" [(ngModel)]="this.mealName">
+                        <mat-hint align="end">{{nameInput.value.length}} / 40</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field class="input-field">
+                        <mat-label>Meal Description</mat-label>
+                        <input autocomplete="off" #descriptionInput matInput placeholder="Describe this meal" formControlName="description" [(ngModel)]="this.mealDescription">
+                        <mat-hint align="end">{{descriptionInput.value.length}} / 100</mat-hint>
+                    </mat-form-field> -->
+
+                    <div style="height: 100%;
+                    border: 1px solid green;
+                    overflow: auto;">
+                        <div formArrayName="steps" style="display: grid; width: 100%;">
+                            <mat-form-field *ngFor="let step of this.recipeFormGroup.get('steps')['controls']; let i = index" >
+                                <mat-label>Step {{i + 1}}:</mat-label>
+                                <input autocomplete="off" #recipe matInput type="text" [formControlName]="i">
+                                <mat-hint align="end">{{recipe.value.length}} / 500</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- <div style="border: 1px solid blue;">
+                        <p style="margin-top: 2rem;">Select 'Next' when you are finished, or choose 'Back' to start over.</p>
+                        <div>
+                            <button mat-raised-button color="accent" (click)="this.resetFormsAndValues(); this.resetChoice()" style="margin-right: 2rem;" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">Reset</button>
+                            <button mat-raised-button color="primary" (click)="this.stepperGoTo(4)" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">Next</button>
+                        </div>
+                    </div> -->
+                </form>
             </mat-step>
 
             <mat-step>
@@ -294,8 +384,10 @@
                     <div style="color: rgba(0,0,0,.87); font-size: 14px; font-weight: 500; margin-bottom: 2rem;">You are now done.</div>
                     <div style="justify-content: flex-end; margin-bottom: 1rem;">
                         <button mat-raised-button color="accent" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.resetFormsAndValues(); this.resetChoice()">Reset</button>
-                        <button [disabled]="!this.nameFormGroup.valid || !this.ingredientsFormGroup.valid" mat-raised-button color="primary" (click)="this.resetChoice(); this.addMeal(stepper)" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">Finish</button>
-                        <button [disabled]="!this.nameFormGroup.valid || !this.ingredientsFormGroup.valid" mat-raised-button color="primary" (click)="this.resetChoice(true); this.addMeal(stepper)" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" [ngStyle]="{'margin-top': !this.mobileMode ? '0rem' : '1rem'}">New Shopping List</button>
+                        <button *ngIf="!this.mobileMode" [disabled]="!this.nameFormGroup.valid || !this.ingredientsFormGroup.valid" mat-raised-button color="primary" (click)="this.resetChoice(); this.addMeal(stepper)" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">Finish</button>
+                        <button *ngIf="!this.mobileMode" [disabled]="!this.nameFormGroup.valid || !this.ingredientsFormGroup.valid" mat-raised-button color="primary" (click)="this.resetChoice(true); this.addMeal(stepper)" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" [ngStyle]="{'margin-top': !this.mobileMode ? '0rem' : '1rem'}">New Shopping List</button>
+                        <button *ngIf="this.mobileMode"  mat-raised-button color="primary" (click)="this.resetChoice(); this.addMeal(stepper)" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">Finish</button>
+                        <button *ngIf="this.mobileMode"  mat-raised-button color="primary" (click)="this.resetChoice(true); this.addMeal(stepper)" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" [ngStyle]="{'margin-top': !this.mobileMode ? '0rem' : '1rem'}">New Shopping List</button>
                     </div>
                 </div>
             </mat-step>
@@ -325,7 +417,7 @@
                     </mat-form-field>
 
                     <div style="height:100%; justify-content: flex-end; margin-bottom: 1rem; display: flex; flex-direction: column; margin-left: 1rem;">
-                        <p>Select 'Next' when you are finished, or choose 'Back' to start over.</p>
+                        <p *ngIf="!this.mobileMode">Select 'Next' when you are finished, or choose 'Back' to start over.</p>
                         <div>
                             <button mat-raised-button color="accent" (click)="this.resetFormsAndValues(); this.resetChoice()" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">Reset</button>
                             <button mat-raised-button color="primary" matStepperNext matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">Next</button>
@@ -354,7 +446,7 @@
                 </p>
 
                 <div>
-                    <p>Go Back, or Select 'Next' when you've entered all your meals</p>
+                    <p *ngIf="!this.mobileMode">Go Back, or Select 'Next' when you've entered all your meals</p>
                     <button mat-raised-button color="accent" (click)="this.resetFormsAndValues(); this.resetChoice()" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">Reset</button>
                     <button mat-raised-button color="primary" matStepperNext matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">Next</button>
                 </div>
@@ -380,6 +472,20 @@
 
 </div>
 
-<!-- <div class="bg"></div>
-<div class="bg bg2"></div>
-<div class="bg bg3"></div> -->
+
+<mat-menu #menu="matMenu">
+    
+
+    <ng-template matMenuContent let-ingredient="data" let-i="index">
+        <button mat-menu-item (click)="this.removeIngredientMobile(i)">
+            <mat-icon>remove_circle</mat-icon>
+            <span>Remove Ingredient</span>
+        </button>
+        <button mat-menu-item >
+            <mat-icon (click)="this.editIngredientMobile(i)">edit</mat-icon>
+            <span>Edit Ingredient</span>
+        </button>
+    </ng-template>
+
+
+</mat-menu>

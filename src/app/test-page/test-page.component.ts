@@ -1,5 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { autocomplete, FoodAutocompleteService } from '../services/food-autocomplete.service';
+
+// export const autocomplete = (time, selector) => (source$) =>
+//   source$.pipe(
+//     debounceTime(time),
+//     switchMap((...args: any[]) => 
+//       selector(...args)
+//         .pipe(
+//             takeUntil(
+//                 source$
+//                     .pipe(
+//                         skip(1)
+//                     )
+//             )
+//         )
+//     )
+//   )
 
 @Component({
   selector: 'app-test-page',
@@ -8,50 +26,23 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class TestPageComponent implements OnInit {
 
-  form: FormGroup;
-  totalEmailsNumber: number[];
+  public term$ = new BehaviorSubject<string>('');
+  public results$: Observable<any> = this.term$.pipe(
+        autocomplete(300, (term => this.fetch(term)))
+  )
 
-  constructor(private fb: FormBuilder) {
+  constructor(private autoCompleteService: FoodAutocompleteService) {
   }
 
   ngOnInit() {
-    this.totalEmailsNumber = this.createCustomLengthArray(10);
-    this.form = this.fb.group({
-      mails: this.fb.array([])
-    });
-
-
-    // console.log(`form`);
-    // console.log(this.form);
   }
 
-  get mails() {
-    return (<FormArray>this.form.get('mails'));
-    // return (<FormArray>this.form.controls['mails']);
+  public debug(event: any): void {
+    console.log(event.value)
   }
 
-  selectNumber(emailNumbers) {
-    const difference = this.mails.length - emailNumbers;
-    difference > 0 ? this.removeMails(difference) : this.addMails(difference);
+  fetch(term: any): Observable<any> {
+    return this.autoCompleteService.getMatches(term.value, 5);
   }
 
-  removeMails(difference) {
-    this.createCustomLengthArray(difference)
-      .forEach(item => this.mails.removeAt(this.mails.length - 1));
-  }
-
-  addMails(difference) {
-    this.createCustomLengthArray(difference)
-      .forEach(
-        item => {
-          this.mails.push(this.fb.control(null, Validators.required));
-        }
-      );
-  }
-
-  createCustomLengthArray(length) {
-    return (new Array(Math.abs(length)))
-      .fill(null)
-      .map((item, index) => index + 1);
-  }
 }

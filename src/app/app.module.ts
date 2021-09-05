@@ -40,6 +40,8 @@ import { EmptyErrorComponent } from './components/util/empty-error/empty-error.c
 import {MatMenuModule} from '@angular/material/menu';
 import { MealViewComponent } from './components/meal-view/meal-view.component';
 import { NewMealPopupComponent } from './components/tabs/new-meal-popup/new-meal-popup.component';
+import { HttpClientModule } from '@angular/common/http';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -83,6 +85,8 @@ import { NewMealPopupComponent } from './components/tabs/new-meal-popup/new-meal
     BrowserModule,
     AppRoutingModule,
     FlexLayoutModule,
+    HttpClientModule,
+    MatAutocompleteModule,
     // Service Worker
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

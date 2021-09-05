@@ -6,7 +6,7 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatListOption } from '@angular/material/list';
 import { Sort } from '@angular/material/sort';
 import { MatStepper } from '@angular/material/stepper';
-import { Meal, ShoppingList, StoreSection, UnitLabel } from 'src/app/models/meal';
+import { Ingredient, Meal, ShoppingList, StoreSection, UnitLabel } from 'src/app/models/meal';
 import { MealService } from 'src/app/services/meal.service';
 import { NewMealPopupComponent } from '../../new-meal-popup/new-meal-popup.component';
 
@@ -85,23 +85,13 @@ export class NewTabComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private mealService: MealService, public dialog: MatDialog) {
     this.enumKeys = Object.keys(this.unitLabels);
     this.enumSections = Object.keys(this.sectionLabels);
-  
-    // console.log('units');
-    // console.log(this.enumKeys)
-    // console.log(this.unitLabels)
-    // console.log('sections');
-    // console.log(this.unitLabels);
-    // console.log(this.sectionLabels);
   }
 
   ngOnInit() {       
     //this.generateRandomMeals(10);
     this.getAllMeals();
-    // console.log(`all:`, this.allMeals);
     // this.deleteMeal('813571f4-3e2f-4aaa-a505-8f17505b48af');
-  }
-
-  
+  } 
 
   public onChooseMeal(): void {
     this.resetFormsAndValues();
@@ -237,13 +227,16 @@ export class NewTabComponent implements OnInit {
         })
       }
     } else {
-
+      //already added ingredients
     }
 
     for (var i = 0; i< this.recipeFormGroup.value['steps'].length; i++){
       this.newMeal.recipe.push(this.recipeFormGroup.value['steps'][i]);
     }
 
+    console.log("new meal")
+    console.log(this.newMeal);
+    
     this.mealService.saveNewMeal(this.newMeal);
 
     this.newMeal = {
@@ -370,10 +363,20 @@ export class NewTabComponent implements OnInit {
       console.log('The dialog was closed');
       console.log(result);
 
-      var newMeal = result.ingredient;
-      this.newMeal.ingredients.push(newMeal);
+      if(result.ingredient){
+        var newMeal = result.ingredient;
+        this.newMeal.ingredients.push(newMeal);
+      }
       // this.animal = result;
     });
+  }
+
+  public editIngredientMobile(index: number): void {
+    console.log('editing', index)
+  }
+  
+  public removeIngredientMobile(index: number): void {
+    this.newMeal.ingredients.splice(index, 1);
   }
   // typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
 

@@ -1,17 +1,38 @@
-<form [formGroup]="form">
-    <mat-form-field>
-        <mat-select placeholder="Number of winners to reward" (selectionChange)="selectNumber($event.value)">
-            <mat-option *ngFor="let emailNumber of totalEmailsNumber" [value]="emailNumber">
-                {{ emailNumber }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+<!-- <form class="example-form"> -->
+    <!-- <mat-form-field class="example-full-width"> -->
+        <!-- <input type="text" placeholder="Pick one" aria-label="Number" matInput  [matAutocomplete]="auto" (input)="term$.next($event.target.value)"> -->
+      <!-- <input type="text" placeholder="Pick one" aria-label="Number" matInput  [matAutocomplete]="auto" (input)="term$.next($event.target)">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let match of this.results$ | async" [value]="match">
+          {{match}}
+        </mat-option>
+      </mat-autocomplete>
+     </mat-form-field>  -->
+<!-- </form> -->
 
-    <div formArrayName="mails">
-        <mat-form-field *ngFor="let email of form.get('mails')['controls']; let i = index">
-            <!-- <mat-form-field *ngFor="let email of form.controls['mails'].controls; let i = index"> -->
-            <textarea matInput [formControlName]="i">
-      </textarea>
-        </mat-form-field>
-    </div>
-</form>
+
+<!-- <div *ngFor="let x of this.results$ | async">
+    {{x}}
+</div> -->
+
+<!-- <div>
+    <button (click)="this.debug()"></button>
+</div> -->
+
+
+
+
+
+
+
+
+<!-- <mat-label>Number</mat-label>
+<input type="text"
+        placeholder="Pick one"
+        matInput
+        [matAutocomplete]="auto">
+<mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+    <mat-option *ngFor="let option of this.autoComplete | async" [value]="option">
+    {{option}}
+    </mat-option>
+</mat-autocomplete> -->

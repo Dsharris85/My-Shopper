@@ -1,9 +1,15 @@
-<div class="empty-list" style="margin-top: 2rem;" *ngIf="this.emptyItem == 'shopping lists'">
-    <div>You have 0 lists made. Click below to make one!</div>
-    <button>New List</button>
+<div class="empty-list pad" style="margin-top: 2rem;">
+    <div *ngIf="this.emptyItem == 'shopping lists'">You have 0 lists made. Click below to make one!</div>
+    <div *ngIf="this.emptyItem == 'meals'">You have 0 meals made. Click below to make one!</div>
+
+    <button class="add-btn" mat-raised-button color="primary" aria-label="Add New" *ngIf="this.emptyItem == 'shopping lists'">
+        <mat-icon>add_circle</mat-icon>
+        New List
+    </button>
+    <button class="add-btn" mat-raised-button color="primary" aria-label="Add New" *ngIf="this.emptyItem == 'meals'">
+        <mat-icon>add_circle</mat-icon>
+        New List
+    </button>
 </div>
 
-<div class="empty-list" style="margin-top: 2rem;" *ngIf="this.emptyItem == 'meals'">
-    <div>You have 0 meals made. Click below to make one!</div>
-    <button>New List</button>
-</div>
+

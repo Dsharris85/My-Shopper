@@ -11,7 +11,7 @@ flex-direction: column;" class="animated-bg-slow">
         overflow: auto;
         margin: 0 auto;" [class.mat-elevation-z3]="true"
         [ngStyle]="{'height': (this.mobileMode) ? 'calc(100% - 100px)' : 'calc(100% - 150px)'}">
-            <app-empty-error *ngIf="this.allMeals.length == 0" [emptyItem]="'shopping lists'"></app-empty-error>
+            <app-empty-error *ngIf="this.allMeals.length == 0" [emptyItem]="'meals'"></app-empty-error>
             <mat-accordion>
                 <mat-expansion-panel #mep="matExpansionPanel" *ngFor="let meal of this.allMeals" (opened)="this.panelOpened(meal.id)" (closed)="this.panelClosed(meal.id)">
                     <mat-expansion-panel-header>
