@@ -37,7 +37,8 @@ export class ListsTabComponent implements OnInit {
         this.getAllLists();
         break;     
       case 3: 
-        console.log('delete meal')
+        console.log('delete meal');
+        this.getAllLists();
         this.getAllMeals();
         break;
     }

@@ -41,6 +41,11 @@ export class MealService {
     return JSON.parse(found);    
   }
 
+  public editList(list: ShoppingList): void {
+    this.deleteList(list.id);
+    this.saveNewList(list);
+  }
+
   public getAllMeals(): Meal[] {
     var meals: Meal[] = [];
 
@@ -73,6 +78,17 @@ export class MealService {
 
   public deleteMeal(id: string): void {
     localStorage.removeItem(`MEAL_${id}`);
+
+    var all = this.getAllLists();
+    all.forEach(item => {
+      var found = item.meals.find(mealID => mealID == id);
+      if(found){
+        item.meals = item.meals.filter(mealID => mealID != id);
+        console.log(item);
+        this.editList(item);
+      }
+    });
+
     // when deleting a meal, need to check if in any lists and remove from first!
     this.notifier.notify(DataUpdateNotificationType.DeleteMeal);
   }
