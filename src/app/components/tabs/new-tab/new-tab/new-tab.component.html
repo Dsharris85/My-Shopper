@@ -159,11 +159,11 @@
                 display: flex;
                 flex-direction: column;" *ngIf="this.mobileMode">
                     <div style="display: flex; justify-content: space-between; height: 4rem;">
-                        <button mat-button aria-label="Remove" (click)="this.removeStep()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                        <button  mat-button aria-label="Remove" (click)="this.removeStep()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
                             <mat-icon>remove_circle</mat-icon>
                             Step
                         </button>
-                        <button mat-button aria-label="Add" (click)="this.addStep()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+                        <button  mat-button aria-label="Add" (click)="this.addStep()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
                             <mat-icon>add_circle</mat-icon>
                             Step
                         </button>
@@ -176,8 +176,8 @@
                         <div formArrayName="steps" style="display: grid; width: 100%;">
                             <mat-form-field *ngFor="let step of this.recipeFormGroup.get('steps')['controls']; let i = index" >
                                 <mat-label>Step {{i + 1}}:</mat-label>
-                                <input autocomplete="off" #recipe matInput type="text" [formControlName]="i">
-                                <mat-hint align="end">{{recipe.value.length}} / 500</mat-hint>
+                                <input autocomplete="off" matInput #recipeInput="matInput"  type="text" [formControlName]="i" (keydown.enter)="$event.preventDefault()">
+                                <mat-hint align="end">{{recipeInput.value.length}} / 500</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>

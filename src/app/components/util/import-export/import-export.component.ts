@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatListOption, MatSelectionListChange } from '@angular/material/list';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { MatListOption, MatSelectionList, MatSelectionListChange } from '@angular/material/list';
 import { MatSelectChange } from '@angular/material/select';
 import { ExportedData, Ingredient, Meal, ShoppingList, StoreSection, UnitLabel } from 'src/app/models/meal';
 import { ImportExportService } from 'src/app/services/import-export.service';
@@ -85,33 +85,35 @@ export class ImportExportComponent implements OnInit {
   public exportData(): void {
     var data: ExportedData = {meals: [], lists: []};
 
-    try{
-      this.selectedItems.forEach(item => {
-        console.log(item);
-        var list = this.listsToExport.find(x => x == item);
-        var meal = this.mealsToExport.find(x => x == item);
-        
-        if(list){
-          data.lists.push(list);
-        } else if (meal) {
-          data.meals.push(meal);
+    if(this.selectedItems){
+      try{
+        this.selectedItems.forEach(item => {
+          console.log(item);
+          var list = this.listsToExport.find(x => x == item);
+          var meal = this.mealsToExport.find(x => x == item);
+          
+          if(list){
+            data.lists.push(list);
+          } else if (meal) {
+            data.meals.push(meal);
+          } else {
+  
+          }
+    
+          console.log(data)
+        });
+    
+        if(data.meals.length > 0 || data.lists.length > 0){
+          const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
+          saveAs(blob, 'my_shopper_data.json');
+          this._snackBar.open("Exported Successfully!", "X");
         } else {
-
+          this._snackBar.open("No data exported! (Possible duplicates)", "X");
         }
-  
-        console.log(data)
-      });
-  
-      if(data.meals.length > 0 || data.lists.length > 0){
-        const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
-        saveAs(blob, 'my_shopper_data.json');
-        this._snackBar.open("Exported Successfully!", "X");
-      } else {
-        this._snackBar.open("No data exported! (Possible duplicates)", "X");
+        
+      } catch(ex) {
+        this._snackBar.open("Error occurred", "X");
       }
-      
-    } catch(ex) {
-      this._snackBar.open("Error occurred", "X");
     }
    
 

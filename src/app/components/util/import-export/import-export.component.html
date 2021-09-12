@@ -19,7 +19,7 @@
         <!-- <mat-label>Choose File</mat-label> -->
         <div style="width: 100%;">
             <input #jsonInput hidden="true" type="file" onclick="this.value=null" (change)="this.handleFileInput($event)" accept=".json"/>
-            <button mat-flat-button color="primary" (click)="jsonInput.click()" style="transform: translateX(170%);">Upload</button>
+            <button mat-flat-button color="primary" (click)="jsonInput.click()" style="margin:0 auto; display:block;">Upload</button>
         </div>
         <!-- <input type="file" matInput (change)="this.handleFileInput($event)"> -->
         <!-- <div class="form-group">
@@ -46,9 +46,13 @@
 <div *ngIf="this.exporting">
 
     <span>Select Items to export:</span>
-
     <mat-selection-list class="selection-list" [class.mat-elevation-z3]="true" #selector [(ngModel)]="this.selectedItems" (selectionChange)="this.selectionChange($event)">
-       
+        
+        <!-- <div mat-subheader>
+            <button mat-raised-button color="accent" (click)="selector.selectAll()">Select All</button>
+            <button mat-raised-button color="accent" (click)="selector.deselectAll()">Clear All</button>
+        </div> -->
+
         <div mat-subheader *ngIf="this.listsToExport.length > 0">Lists</div>
         <mat-divider></mat-divider>
 
@@ -73,10 +77,28 @@
 
     <br>
 
-    <button mat-menu-item color="primary" (click)="this.exportData()">
+
+
+    <!-- <button mat-menu-item color="primary" (click)="this.exportData()">
         <mat-icon color="primary">file_upload</mat-icon>
         <span>Export</span>
-    </button>
+    </button> -->
+    <div>
+        <button mat-raised-button matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" color="primary" (click)="this.exportData()">
+            <mat-icon >file_upload</mat-icon>
+            <span>Export</span>
+        </button>
+
+        <!-- <button class="main-btns" mat-raised-button color="accent" (click)="this.onChooseList()" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">
+            <span>New List</span><br><br>
+            <mat-icon style="font-size: 2rem; height: 2rem; width: 2rem;">receipt_long</mat-icon>
+        </button> -->
+
+
+
+        <button mat-raised-button matRipple color="accent" (click)="selector.selectAll()">Select All</button>
+        <button mat-raised-button matRipple color="accent" (click)="selector.deselectAll()">Clear All</button>
+    </div>
 
     <br>
 

@@ -417,4 +417,7 @@ export class NewTabComponent implements OnInit {
   }
   // typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
 
+  public recipeStepChange(e): void {
+    console.log(e);
+  }
 }
