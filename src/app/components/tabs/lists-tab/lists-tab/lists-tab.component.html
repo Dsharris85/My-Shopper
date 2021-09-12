@@ -24,7 +24,7 @@ flex-direction: column;" class="animated-bg-slow">
                     </mat-expansion-panel-header>
                    
                     <br>  
-                    <div [class.mat-elevation-z3]="true">
+                    <div [class.mat-elevation-z3]="true" style="padding: 1rem;">
                         <div *ngFor="let meal of list.mealObjects;" class="meal" >
                             <div *ngIf="meal">{{meal.name | titlecase}}</div>
                         </div>

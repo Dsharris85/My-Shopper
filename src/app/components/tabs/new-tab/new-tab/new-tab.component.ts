@@ -6,9 +6,12 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatListOption } from '@angular/material/list';
 import { Sort } from '@angular/material/sort';
 import { MatStepper } from '@angular/material/stepper';
+import { DataUpdateNotificationType } from 'src/app/models/dataNotifications';
 import { Ingredient, Meal, ShoppingList, StoreSection, UnitLabel } from 'src/app/models/meal';
+import { DataUpdateNotifierService } from 'src/app/services/data-update-notifier.service';
 import { MealService } from 'src/app/services/meal.service';
 import { NewMealPopupComponent } from '../../new-meal-popup/new-meal-popup.component';
+
 
 @Component({
   selector: 'app-new-tab',
@@ -82,15 +85,17 @@ export class NewTabComponent implements OnInit {
   public allMeals: Meal[] = [];
 
 
-  constructor(private _formBuilder: FormBuilder, private mealService: MealService, public dialog: MatDialog) {
+  constructor(private _formBuilder: FormBuilder, private mealService: MealService, public dialog: MatDialog, private notifierService: DataUpdateNotifierService) {
     this.enumKeys = Object.keys(this.unitLabels);
     this.enumSections = Object.keys(this.sectionLabels);
   }
 
   ngOnInit() {       
-    //this.generateRandomMeals(10);
     this.getAllMeals();
-    // this.deleteMeal('813571f4-3e2f-4aaa-a505-8f17505b48af');
+
+    // this.notifierService.notification.subscribe((notification: DataUpdateNotificationType) => {
+    //   this.handleNotification(notification);
+    // });
   } 
 
   public onChooseMeal(): void {
@@ -415,9 +420,17 @@ export class NewTabComponent implements OnInit {
     
 
   }
-  // typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
-
+  
   public recipeStepChange(e): void {
     console.log(e);
   }
+
+  // public handleNotification(notification: DataUpdateNotificationType): void {
+  //   switch(notification){
+  //     case 1: 
+  //       console.log('new meal')
+  //       this.getAllMeals();
+  //       break;
+  //   }
+  // }
 }

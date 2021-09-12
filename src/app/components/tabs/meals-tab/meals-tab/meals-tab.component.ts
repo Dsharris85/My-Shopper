@@ -3,7 +3,9 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { YesNoComponent } from 'src/app/components/util/yes-no/yes-no.component';
+import { DataUpdateNotificationType } from 'src/app/models/dataNotifications';
 import { Meal, UnitLabel } from 'src/app/models/meal';
+import { DataUpdateNotifierService } from 'src/app/services/data-update-notifier.service';
 import { MealService } from 'src/app/services/meal.service';
 
 @Component({
@@ -12,6 +14,8 @@ import { MealService } from 'src/app/services/meal.service';
   styleUrls: ['./meals-tab.component.css']
 })
 export class MealsTabComponent implements OnInit {
+
+  public notifyTypes = DataUpdateNotificationType;
 
   public mealFormGroup: FormGroup = this._formBuilder.group({
     name: ['', [Validators.required,  Validators.maxLength(40)]],
@@ -30,7 +34,7 @@ export class MealsTabComponent implements OnInit {
   @Input()
   public mobileMode: boolean;
 
-  constructor(private _formBuilder: FormBuilder, private mealService: MealService, public dialog: MatDialog) { 
+  constructor(private _formBuilder: FormBuilder, private mealService: MealService, public dialog: MatDialog, private notifierService: DataUpdateNotifierService) { 
     this.enumKeys = Object.keys(this.unitLabels);
   }
 
@@ -58,6 +62,12 @@ export class MealsTabComponent implements OnInit {
   ngOnInit(): void {
     this.getAllMeals();
 
+    this.notifierService.notification.subscribe((notification: DataUpdateNotificationType) => {
+      console.log('Noting!');
+      console.log(notification);
+      this.handleNotification(notification);
+    });
+    
     // this.dialog.afterAllClosed.subscribe( closed => {
     //   console.log(`closed`, closed);
     // });
@@ -197,6 +207,16 @@ export class MealsTabComponent implements OnInit {
   public removeIngredient(): void {
     if(this.iUnit.length > 0) {
       this.selectNumber(this.iUnit.length-1);
+    }
+  }
+
+  public handleNotification(notification: DataUpdateNotificationType): void {
+    switch(notification){
+      case 1: 
+        console.log('new meal')
+        console.log(this.notifyTypes[notification]);
+        this.getAllMeals();
+        break;
     }
   }
 }

@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { YesNoComponent } from 'src/app/components/util/yes-no/yes-no.component';
+import { DataUpdateNotificationType } from 'src/app/models/dataNotifications';
 import { Meal, ShoppingList } from 'src/app/models/meal';
+import { DataUpdateNotifierService } from 'src/app/services/data-update-notifier.service';
 import { MealService } from 'src/app/services/meal.service';
 
 @Component({
@@ -17,13 +19,28 @@ export class ListsTabComponent implements OnInit {
   @Input()
   public mobileMode: boolean; 
 
-  constructor(private mealService: MealService, public dialog: MatDialog) { }
+  constructor(private mealService: MealService, public dialog: MatDialog, private notifierService: DataUpdateNotifierService) { }
 
   ngOnInit(): void {
     this.getAllMeals();
     this.getAllLists();
 
-    // console.log(this.mobileMode);
+    this.notifierService.notification.subscribe((notification: DataUpdateNotificationType) => {
+      this.handleNotification(notification);
+    });
+  }
+
+  public handleNotification(notification: DataUpdateNotificationType) {
+    switch(notification){
+      case 0: 
+        console.log('new list')
+        this.getAllLists();
+        break;     
+      case 3: 
+        console.log('delete meal')
+        this.getAllMeals();
+        break;
+    }
   }
 
   popupYesNo(id: string) {

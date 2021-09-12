@@ -1,13 +1,15 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Injectable } from '@angular/core';
+import { DataUpdateNotificationType } from '../models/dataNotifications';
 import { Ingredient, Meal, ShoppingList } from '../models/meal';
+import { DataUpdateNotifierService } from './data-update-notifier.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MealService {
 
-  constructor() { }
+  constructor(private notifier: DataUpdateNotifierService) { }
 
   public saveNewMeal(meal: Meal, id?: string): void {
     var id = (id ? id : this.generateID());
@@ -15,6 +17,7 @@ export class MealService {
     meal.id = id;
     var toSave = JSON.stringify(meal);
     localStorage.setItem(`MEAL_${id}`, toSave);    
+    this.notifier.notify(DataUpdateNotificationType.NewMeal);
   }
 
   public saveNewList(list: ShoppingList, id?: string): void {
@@ -24,6 +27,8 @@ export class MealService {
     list.id = id;
     var toSave = JSON.stringify(list);
     localStorage.setItem(`LIST_${id}`, toSave);
+    this.notifier.notify(DataUpdateNotificationType.NewList);
+
   }
 
   public getMeal(id: string): Meal {
@@ -68,6 +73,8 @@ export class MealService {
 
   public deleteMeal(id: string): void {
     localStorage.removeItem(`MEAL_${id}`);
+    // when deleting a meal, need to check if in any lists and remove from first!
+    this.notifier.notify(DataUpdateNotificationType.DeleteMeal);
   }
   
   public deleteList(id: string): void {
