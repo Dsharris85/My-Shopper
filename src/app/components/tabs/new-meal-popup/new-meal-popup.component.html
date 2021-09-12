@@ -4,7 +4,8 @@
 
 <mat-form-field appearance="fill" style="width: 100%;">
     <mat-label>Ingredient Name</mat-label>
-    <input id="iName" #iName type="text" placeholder="Eggs, Chicken Breast, etc..." matInput required [matAutocomplete]="auto" (input)="this.inputChange($event.target)">
+    <input required id="iName" #iName type="text" placeholder="Eggs, Chicken Breast, etc..." matInput [matAutocomplete]="auto" [(ngModel)]="this.ingredient.name" (input)="this.inputChange($event.target)">
+    <!-- <input required id="iName" #iName type="text" placeholder="Eggs, Chicken Breast, etc..." matInput [matAutocomplete]="auto" (input)="this.inputChange($event.target)"> -->
     <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let match of this.results$ | async" [value]="match">
         {{match}}
@@ -14,22 +15,24 @@
 
 <mat-form-field appearance="fill" style="width: 100%;">
     <mat-label>Amount</mat-label>
-    <input autocomplete="off" matInput type="number" required [(ngModel)]="this.ingredientAmount">
+    <input autocomplete="off" matInput type="number" required [(ngModel)]="this.ingredient.unitAmount">
 </mat-form-field>
 
     <mat-form-field style="width: 100%;" >
     <mat-label>Unit</mat-label>
-    <mat-select (selectionChange)="this.unitChanged($event)">   
+    <mat-select [(ngModel)]="this.ingredient.unitLabel">   
+    <!-- <mat-select (selectionChange)="this.unitChanged($event)">    -->
         <mat-option *ngFor="let unit of this.enumKeys" [value]="unit">{{this.unitLabels[unit]}}</mat-option>
     </mat-select>        
 </mat-form-field>
 
 <mat-form-field style="width: 100%;" >
     <mat-label>Store Section</mat-label>
-    <mat-select (selectionChange)="this.sectionChanged($event)">   
+    <mat-select [(ngModel)]="this.ingredient.sectionOfStore">   
+    <!-- <mat-select (selectionChange)="this.sectionChanged($event)">    -->
         <mat-option *ngFor="let section of this.enumSections" [value]="section">{{this.sectionLabels[section]}}</mat-option>
     </mat-select>        
 </mat-form-field>
 
-<button mat-raised-button color="primary" style="margin-top: 1rem;" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.addIngredient()">Submit</button>
+<button mat-raised-button color="primary" style="margin-top: 1rem;" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.addIngredient()" >Submit</button>
 <button mat-raised-button color="accent" style="margin-top: 1rem; margin-left: 1rem;" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" mat-dialog-close>Cancel</button>

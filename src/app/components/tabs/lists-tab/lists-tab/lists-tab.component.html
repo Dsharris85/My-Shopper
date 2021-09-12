@@ -23,13 +23,14 @@ flex-direction: column;" class="animated-bg-slow">
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                    
-                    <mat-divider></mat-divider>
                     <br>  
-                    <div *ngFor="let meal of list.mealObjects;" class="meal">
-                        <div *ngIf="meal">{{meal.name | titlecase}}</div>
+                    <div [class.mat-elevation-z3]="true">
+                        <div *ngFor="let meal of list.mealObjects;" class="meal" >
+                            <div *ngIf="meal">{{meal.name | titlecase}}</div>
+                        </div>
                     </div>
                     <br><br>
-                    <div style="margin-top: 2rem;">
+                    <div style="margin-top: 2rem; padding: 1rem;" [class.mat-elevation-z3]="true">
                         <button mat-raised-button color="primary" aria-label="View" style="margin-right: 1rem;">
                             <mat-icon>visibility</mat-icon>
                             <a [routerLink]="['/shoppingList', list.id]">View This List </a>

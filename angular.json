@@ -33,7 +33,7 @@
                             "node_modules/material-design-icons/iconfont/material-icons.css",
                             "node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "src/styles.css",
-                            "src/customStyles.scss"
+                            "src/customStyles.scss"                            
                         ],
                         "scripts": [
                             "node_modules/bootstrap/dist/js/bootstrap.min.js"

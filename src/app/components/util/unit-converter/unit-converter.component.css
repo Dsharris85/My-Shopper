@@ -1,0 +1,27 @@
+.input-line {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid grey; */
+}
+
+.unit-header {
+    text-align: center;
+    font-size: 2.5rem;
+    
+    font-family: 'Style Script', cursive !important;
+   
+    padding: 0;
+    margin: 0;
+}
+
+.inpt {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+}
+
+h3:hover {
+    cursor: pointer;
+}

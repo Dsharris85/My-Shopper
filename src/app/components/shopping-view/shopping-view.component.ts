@@ -1,8 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MatListOption } from '@angular/material/list';
 import { ActivatedRoute } from '@angular/router';
-import { Ingredient, ShoppingList, StoreSection } from 'src/app/models/meal';
+import { Ingredient, ShoppingList, StoreSection, UnitLabel } from 'src/app/models/meal';
 import { MealService } from 'src/app/services/meal.service';
+
+import * as convert from 'node_modules/recipe-unit-converter';
 
 @Component({
   selector: 'app-shopping-view',
@@ -14,6 +16,7 @@ export class ShoppingViewComponent implements OnInit {
   constructor(private _Activatedroute:ActivatedRoute, private mealService: MealService){ }
 
   public storeSections = StoreSection;
+  private labels = UnitLabel;
 
   public mealList: ShoppingList;
   public shoppingList: Ingredient[] = [];
@@ -38,36 +41,83 @@ export class ShoppingViewComponent implements OnInit {
   }
   
   ngOnInit(): void {
-
-    //TODO: 1 liter of milk + 1 cup of milk = figure out... gotta keep in 1 unit
-
-
     this._Activatedroute.paramMap.subscribe(params => { 
-      console.log(`paramsOG`, params);
+      // console.log(`paramsOG`, params);
       this.mealList = this.mealService.getList(params.get('id'));
-
-      //console.log(`params =${params.get('id')}`);
 
       this.mealList.mealObjects = [];
 
       this.getMealsFromList(this.mealList);
       this.sortMealsIntoShoppingList();
 
-      // console.log(`MEAL & SHOPPING`);
-      // console.log(this.mealList);
-      // console.log(this.shoppingList);
     });
   }
   
+  public sortMealsIntoShoppingListTest() {
+    this.mealList.mealObjects.forEach(meal => {
+      console.log('meal', meal);
+      // console.log(`meal=`, meal);
+      if(meal){
+        meal.ingredients.forEach(ingredient => {
+          var found = this.shoppingList.filter(i => i.name == ingredient.name);
+          // if already need to buy item, just add amount to same obj
+          found.forEach(foundIngredient => {
+            if(foundIngredient){
+              if(foundIngredient.unitLabel == ingredient.unitLabel){
+                this.shoppingList.find(i => i.name == ingredient.name).unitAmount += ingredient.unitAmount;
+              }else {
+                // var convertError = false;
+                try{
+                  var toAdd = this.addDifferentUnitLabels(foundIngredient, ingredient);
+                  this.shoppingList.find(i => i.name == ingredient.name).unitAmount += toAdd;
+                } catch(error) {
+                  // convertError = true;
+                  console.log('error', ingredient, found);
+                  this.shoppingList.push(ingredient);
+                }
+                
+              //   if(convertError){
+              //   console.log('errored!!!')
+              // }
+  
+              }
+            } else {
+              this.shoppingList.push(ingredient);
+            }
+          });
+          
+        });
+      }
+    });
+  }
+
   public sortMealsIntoShoppingList() {
     this.mealList.mealObjects.forEach(meal => {
+      console.log('meal', meal);
       // console.log(`meal=`, meal);
       if(meal){
         meal.ingredients.forEach(ingredient => {
           var found = this.shoppingList.find(i => i.name == ingredient.name);
           // if already need to buy item, just add amount to same obj
           if(found){
-            this.shoppingList.find(i => i.name == ingredient.name).unitAmount += ingredient.unitAmount;
+            if(found.unitLabel == ingredient.unitLabel){
+              this.shoppingList.find(i => i.name == ingredient.name).unitAmount += ingredient.unitAmount;
+            }else {
+              // var convertError = false;
+              try{
+                var toAdd = this.addDifferentUnitLabels(found, ingredient);
+                this.shoppingList.find(i => i.name == ingredient.name).unitAmount += toAdd;
+              } catch(error) {
+                // convertError = true;
+                console.log('error', ingredient, found);
+                this.shoppingList.push(ingredient);
+              }
+              
+            //   if(convertError){
+            //   console.log('errored!!!')
+            // }
+
+            }
           } else {
             this.shoppingList.push(ingredient);
           }
@@ -76,9 +126,22 @@ export class ShoppingViewComponent implements OnInit {
     });
   }
 
+  addDifferentUnitLabels(found: Ingredient, ingredient: Ingredient): number {
+    var diff = 0;
+    diff = convert(ingredient.unitAmount).from(ingredient.unitLabel.toString()).to(found.unitLabel.toString());
+    
+    return diff;
+  }
+
   public getMealsFromList(list: ShoppingList) {
+    // console.log('shoppinglist', list);
     this.mealList.meals.forEach(mealID => {
-      this.mealList.mealObjects.push(this.mealService.getMeal(mealID));
+      // console.log(mealID);
+      var found = this.mealService.getMeal(mealID);
+      console.log('found', found);
+      this.mealList.mealObjects.push(found);
+      console.log(this.mealList);
+
     });
     // console.log(this.mealList);
   }
@@ -99,9 +162,12 @@ export class ShoppingViewComponent implements OnInit {
   } 
 
   public getSections(section: StoreSection): Ingredient[] {
+    
     console.log("section:", section)
     // premake on init, and just grab so don't need filter everytime
-    return this.shoppingList.filter(ingredient => ingredient.sectionOfStore == section);
+    var rtn = this.shoppingList.filter(ingredient => ingredient.sectionOfStore == section);
+    console.log(rtn)
+    return rtn;
   }
 
 }

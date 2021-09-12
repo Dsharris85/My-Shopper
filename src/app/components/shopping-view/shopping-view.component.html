@@ -1,7 +1,7 @@
 <div class="main">
     <div class="flex-container">
-        <h3 [ngClass]="this.mobile ? 'header-mobile' : 'header-norm'">{{this.mealList.name | titlecase}}:</h3><br>
-        <mat-selection-list [class.mat-elevation-z3]="true" #selector (selectionChange)="this.swapCheck(selector.selectedOptions.selected)" style="width: 90%; margin: 1rem auto; margin-top: 1rem;">
+        <h3 [ngClass]="this.mobile ? 'header-mobile' : 'header-norm'">{{this.mealList.name | titlecase}}:</h3>
+        <mat-selection-list [class.mat-elevation-z3]="true" #selector (selectionChange)="this.swapCheck(selector.selectedOptions.selected)" style="width: 90%; margin: 1rem auto; margin-top: 0;">
            
             <!-- <mat-list-option #option *ngFor="let ingredient of this.shoppingList">
                 <div [ngClass]="option.selected ? 'checked' : 'unchecked'">{{ingredient.unitAmount}} {{ingredient.unitLabel || ''}} {{ingredient.name | titlecase}}</div>
@@ -51,9 +51,9 @@
 
         </mat-selection-list>
 
-        <!-- <p>
-            Things remaining: {{this.shoppingList.length - selector.selectedOptions.selected.length}}
-        </p> -->
+        <p *ngIf="!this.mobile" style="width: 90%; margin: 0 auto; text-align: end;">
+            <b>Things remaining: {{this.shoppingList.length - selector.selectedOptions.selected.length}}</b>
+        </p>
     </div>
 
     <div class="flex-container">
@@ -67,18 +67,10 @@
 
         <br><br><br>
         <button mat-raised-button color="primary" aria-label="Open" style="width: 140px;margin: 0 auto;">
-            <!-- <a routerLink="./"></a>Go Home</a> -->
             <mat-icon style="margin-right: 1rem;">home</mat-icon>
             <a routerLink="">Go Home</a>
         </button>
         <br>
-
-
-        <!-- <div class="example-container" [class.mat-elevation-z2]="!isActive" [class.mat-elevation-z8]="isActive">
-            Example
-        </div>
-
-        <button mat-button (click)="isActive = !isActive">Toggle Elevation</button> -->
     </div>
 
 </div>

@@ -42,6 +42,16 @@ import { MealViewComponent } from './components/meal-view/meal-view.component';
 import { NewMealPopupComponent } from './components/tabs/new-meal-popup/new-meal-popup.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MealOrListPromptComponent } from './components/tabs/new-tab/meal-or-list-prompt/meal-or-list-prompt.component';
+import { BottomNavigationButtonsComponent } from './components/tabs/new-tab/bottom-navigation-buttons/bottom-navigation-buttons.component';
+import { CompletedPageComponent } from './components/tabs/new-tab/completed-page/completed-page.component';
+import { UnitConverterComponent } from './components/util/unit-converter/unit-converter.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ImportExportComponent } from './components/util/import-export/import-export.component';
+import {MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
+import { ThemeSwitcherComponent } from './components/util/theme-switcher/theme-switcher.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 
 @NgModule({
   declarations: [
@@ -57,6 +67,12 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     EmptyErrorComponent,
     MealViewComponent,
     NewMealPopupComponent,
+    MealOrListPromptComponent,
+    BottomNavigationButtonsComponent,
+    CompletedPageComponent,
+    UnitConverterComponent,
+    ImportExportComponent,
+    ThemeSwitcherComponent,
   ],
   imports: [
     // Angular Materials
@@ -81,6 +97,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatDialogModule,
     MatToolbarModule,
     MatMenuModule,
+    DragDropModule,
+    MatSnackBarModule,
+    MatSlideToggleModule,
     // Defaults
     BrowserModule,
     AppRoutingModule,
@@ -98,7 +117,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
   exports: [
     //
   ],
-  providers: [],
+  providers: [{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

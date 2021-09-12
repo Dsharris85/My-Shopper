@@ -1,0 +1,14 @@
+<p class="text">
+    You are done. Select an option:
+</p>
+<div [class.mat-elevation-z3]="true" [ngClass]="this.mobile ? 'main-mobile' : 'main'">
+    <button class="main-btn" mat-raised-button color="primary" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.selectNavigate('home')">Save Meal</button>
+    <button class="main-btn" mat-raised-button color="accent" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.selectNavigate('meal')">New Meal</button>
+    <button class="main-btn"mat-raised-button color="accent" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.selectNavigate('list')">New List</button>
+</div>
+
+<!-- <div *ngIf="this.mobile" class="main mobile" [class.mat-elevation-z3]="true">
+    <button class="main-btn" mat-raised-button color="primary" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.selectNavigate('home')">Save Meal</button>
+    <button class="main-btn" mat-raised-button color="accent" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.selectNavigate('meal')">New Meal</button>
+    <button class="main-btn"mat-raised-button color="accent" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" (click)="this.selectNavigate('list')">New List</button>
+</div> -->

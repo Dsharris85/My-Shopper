@@ -200,18 +200,18 @@ main,
 lighter,
 darker);
 body {
-    --warn-color: #e36397;
-    --warn-lighter-color: #f7d0e0;
-    --warn-darker-color: #d8477a;
+    --warn-color: #e4db34;
+    --warn-lighter-color: #f7f4c2;
+    --warn-darker-color: #d9cd21;
     --text-warn-color: #{$dark-primary-text};
     --text-warn-lighter-color: #{$dark-primary-text};
     --text-warn-darker-color: #{$light-primary-text};
 }
 
-$mat-warn: ( main: #e36397,
-lighter: #f7d0e0,
-darker: #d8477a,
-200: #e36397, // For slide toggle,
+$mat-warn: ( main: #e4db34,
+lighter: #f7f4c2,
+darker: #d9cd21,
+200: #e4db34, // For slide toggle,
 contrast: ( main: $dark-primary-text, lighter: $dark-primary-text, darker: $light-primary-text, ));
 $theme-warn: mat-palette($mat-warn,
 main,

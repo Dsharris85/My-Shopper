@@ -82,12 +82,19 @@ button:hover {
     display: flex;
     flex-direction: column;
     
-    justify-content: space-between;
-    height: 140px;
+    justify-content: space-around;
+    height: 200px;
+    background: white;
+    padding: 1rem;
 }
 
 .edit-window {
     margin-top: 2rem;
+    /* width: 45%; */
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+    background-color: white;
 }
 
 .edit-btn-mobile {
@@ -95,7 +102,7 @@ button:hover {
     margin: 0 auto;
 }
 .edit-btn {
-margin-right: 1rem;
+margin-right: 0;
 }
 
 .header-norm {

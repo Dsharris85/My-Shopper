@@ -1,0 +1,27 @@
+
+<div style="justify-content: flex-end; margin-bottom: 1rem; display: flex; flex-direction: column; margin-left: 1rem;">
+    <p style="margin-top: 2rem;" *ngIf="!this.mobile">Select 'Next' when you are finished, or choose 'Back' to start over.</p>
+    <div>
+        <button mat-raised-button color="primary" (click)="this.nextStep()" style="margin-right: 2rem;" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" [disabled]="this.disableNext">Next</button>
+        <button mat-raised-button color="accent" (click)="this.chooseReset(false)" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">Reset</button>
+    </div>    
+</div>
+
+
+<!-- <div *ngIf="this.currentStep == 4" >
+    
+    <div style="color: rgba(0,0,0,.87); font-size: 14px; font-weight: 500; margin-bottom: 2rem;">You are now done.</div>
+    <div style="justify-content: flex-end; margin-bottom: 1rem;">
+        <button [disabled]="this.disableFinish" mat-raised-button color="primary" (click)="this.chooseReset(false);" style="margin-right: 2rem" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">Finish</button>
+        
+        <button [disabled]="this.disableFinish" mat-raised-button color="primary" (click)="this.chooseReset(true); this.addMeal(stepper)" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" [ngStyle]="{'margin-top': !this.mobile ? '0rem' : '1rem'}" >
+            <mat-icon>add_circle</mat-icon>
+            New Shopping List
+        </button>
+        
+        <button [disabled]="this.disableFinish" mat-raised-button color="primary" (click)="this.resetChoice(true); this.addList(stepper)" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" [ngStyle]="{'margin-top': !this.mobile ? '0rem' : '1rem'}" >
+            <mat-icon>add_circle</mat-icon>
+            New Meal
+        </button>
+    </div>
+</div> -->

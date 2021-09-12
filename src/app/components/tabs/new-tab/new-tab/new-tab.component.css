@@ -10,7 +10,7 @@
     flex-grow: 1;
 }
 
-.select-buttons {
+/* .select-buttons {
     height: 100%;
     width: 100%;
     margin: 0 auto;
@@ -39,7 +39,7 @@
     flex-direction: column;
     justify-content: space-between;
 
-}
+} */
 
 .main-btns {
     width: 100px;
@@ -53,12 +53,12 @@
     .input-field {
         width: 75vw;
     }
-    .select-home {
+    /* .select-home {
         flex-direction: column;
     }
     .main-btns {
         width: 200px;
-    }
+    } */
     ::ng-deep .mat-horizontal-stepper-header-container {
         height: 40px;
     }
@@ -103,7 +103,7 @@ mat-form-field {
 } */
 
 .flex-bottom-buttons {
-    border: 1px solid green;
+    /* border: 1px solid green; */
     height: 20%;
     display: flex;
     flex-direction: column;
@@ -233,14 +233,14 @@ button:hover {
     height: 10%;
     /* display: inline-block; */
     text-overflow: ellipsis;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
 .mobile-step2 {
-    border: 1px solid red;
+    /* border: 1px solid red; */
    height: 100%;
 }
 
@@ -248,7 +248,7 @@ button:hover {
     height: 10%;
     /* display: inline-block; */
     text-overflow: ellipsis;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

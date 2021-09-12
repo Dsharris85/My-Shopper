@@ -41,11 +41,12 @@ export class MealsTabComponent implements OnInit {
       }
     });
 
-    const sub = dialogRef.componentInstance.deleteThis.subscribe(id => {
+    dialogRef.componentInstance.deleteThis.subscribe(id => {
       // do something
       console.log(`deleted = ${id}`);
       this.removeMeal(id);
     });
+
     dialogRef.afterClosed().subscribe(() => {
       // unsubscribe onAdd
       dialogRef.componentInstance.deleteThis.unsubscribe();
@@ -105,6 +106,7 @@ export class MealsTabComponent implements OnInit {
   }
 
   public removeMeal(id: string): void {
+    console.log('removing : ', id)
     this.allMeals = this.allMeals.filter(meal => meal.id != id)
     this.mealService.deleteMeal(id);
   }

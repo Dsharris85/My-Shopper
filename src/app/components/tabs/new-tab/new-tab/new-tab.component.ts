@@ -356,7 +356,7 @@ export class NewTabComponent implements OnInit {
   public popupNewMealDialog(): void {
     const dialogRef = this.dialog.open(NewMealPopupComponent, {
       width: '300px',
-      // data: {name: this.name, animal: this.animal}
+      data: {ingredient: null}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -372,11 +372,48 @@ export class NewTabComponent implements OnInit {
   }
 
   public editIngredientMobile(index: number): void {
-    console.log('editing', index)
+    console.log('editing', index);
+
+    const dialogRef = this.dialog.open(NewMealPopupComponent, {
+      width: '300px',
+      data: {ingredient: this.newMeal.ingredients[index]}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed from editing');
+      console.log(result);
+
+      if(result.ingredient){
+        this.newMeal.ingredients[index] = result.ingredient;
+      }
+      // this.animal = result;
+    });
   }
   
   public removeIngredientMobile(index: number): void {
     this.newMeal.ingredients.splice(index, 1);
+  }
+
+  public handleEndNavigate(where: string, step: any): void {
+    console.log(where);
+    console.log(step);
+    if(this.meal && !this.list){
+      this.addMeal(step);
+    } else if(this.list && !this.meal){
+      this.addList(step);
+    }
+
+    if(where == "home"){
+      this.resetChoice();
+    } else if (where == 'list'){      
+      this.resetChoice(true);
+    } else if (where == 'home'){
+      this.resetChoice(true);
+    }
+
+
+    
+
   }
   // typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
 

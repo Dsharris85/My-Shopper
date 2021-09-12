@@ -1,8 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, NavigationEnd, Router, UrlTree } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ShoppingList } from 'src/app/models/meal';
 import { MealService } from 'src/app/services/meal.service';
+import { ImportExportComponent } from '../../util/import-export/import-export.component';
+import { ThemeSwitcherComponent } from '../../util/theme-switcher/theme-switcher.component';
+import { UnitConverterComponent } from '../../util/unit-converter/unit-converter.component';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +15,7 @@ import { MealService } from 'src/app/services/meal.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  constructor(private router: Router) { 
+  constructor(private router: Router, public dialog: MatDialog) { 
     
   }
 
@@ -33,6 +37,42 @@ export class HeaderComponent implements OnInit, OnDestroy {
     } else {
       this.refresh();
     }
+  }
+
+  public popupUnitConverter(): void {
+    const dialogRef = this.dialog.open(UnitConverterComponent, {
+      height:'200px',
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe( res => {
+      console.log('closed dialog');
+      console.log(res);
+    });
+  }
+
+  public popupImportExport(): void {
+    const dialogRef = this.dialog.open(ImportExportComponent, {
+      // height:'300px',
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe( res => {
+      console.log('closed dialog');
+      console.log(res);
+    });
+  }
+
+  public popupThemeSwitcher(): void {
+    const dialogRef = this.dialog.open(ThemeSwitcherComponent, {
+      // height:'300px',
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe( res => {
+      console.log('closed dialog');
+      console.log(res);
+    });
   }
 
 }

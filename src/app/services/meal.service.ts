@@ -17,8 +17,10 @@ export class MealService {
     localStorage.setItem(`MEAL_${id}`, toSave);    
   }
 
-  public saveNewList(list: ShoppingList): void {
-    var id = this.generateID();
+  public saveNewList(list: ShoppingList, id?: string): void {
+    var id = (id ? id : this.generateID());
+
+    // var id = this.generateID();
     list.id = id;
     var toSave = JSON.stringify(list);
     localStorage.setItem(`LIST_${id}`, toSave);
