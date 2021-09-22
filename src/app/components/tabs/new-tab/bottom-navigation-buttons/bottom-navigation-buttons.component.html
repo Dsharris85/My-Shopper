@@ -1,8 +1,0 @@
-
-<div style="justify-content: flex-end; margin-bottom: 1rem; display: flex; flex-direction: column; margin-left: 1rem;">
-    <p style="margin-top: 2rem;" *ngIf="!this.mobile">Select 'Next' when you are finished, or choose 'Back' to start over.</p>
-    <div>
-        <button mat-raised-button color="primary" (click)="this.nextStep()" style="margin-right: 2rem;" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5" [disabled]="this.disableNext">Next</button>
-        <button mat-raised-button color="accent" (click)="this.chooseReset(false)" matRipple [matRippleUnbounded]="true" [matRippleRadius]="5">Reset</button>
-    </div>    
-</div>

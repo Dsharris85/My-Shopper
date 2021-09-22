@@ -1,0 +1,115 @@
+{
+  "configVersion": 1,
+  "timestamp": 1632346539733,
+  "index": "https://dsharris85.github.io/My-Shopper/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://dsharris85.github.io/My-Shopper/favicon.ico",
+        "https://dsharris85.github.io/My-Shopper/index.html",
+        "https://dsharris85.github.io/My-Shopper/main.9f5d66782737ffcdd838.js",
+        "https://dsharris85.github.io/My-Shopper/manifest.webmanifest",
+        "https://dsharris85.github.io/My-Shopper/polyfills.171cd13ed18d120e5d0c.js",
+        "https://dsharris85.github.io/My-Shopper/runtime.0e49e2b53282f40c8925.js",
+        "https://dsharris85.github.io/My-Shopper/scripts.15dc7c6e2e7ff57d4864.js",
+        "https://dsharris85.github.io/My-Shopper/styles.304498dd134889731569.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://dsharris85.github.io/My-Shopper/MaterialIcons-Regular.4674f8ded773cb03e824.eot",
+        "https://dsharris85.github.io/My-Shopper/MaterialIcons-Regular.5e7382c63da0098d634a.ttf",
+        "https://dsharris85.github.io/My-Shopper/MaterialIcons-Regular.83bebaf37c09c7e1c3ee.woff",
+        "https://dsharris85.github.io/My-Shopper/MaterialIcons-Regular.cff684e59ffb052d72cb.woff2",
+        "https://dsharris85.github.io/My-Shopper/assets/fonts/Style_Script/OFL.txt",
+        "https://dsharris85.github.io/My-Shopper/assets/fonts/Style_Script/StyleScript-Regular.ttf",
+        "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/OFL.txt",
+        "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/README.txt",
+        "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/YanoneKaffeesatz-VariableFont_wght.ttf",
+        "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/static/YanoneKaffeesatz-Bold.ttf",
+        "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/static/YanoneKaffeesatz-ExtraLight.ttf",
+        "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/static/YanoneKaffeesatz-Light.ttf",
+        "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/static/YanoneKaffeesatz-Medium.ttf",
+        "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/static/YanoneKaffeesatz-Regular.ttf",
+        "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/static/YanoneKaffeesatz-SemiBold.ttf",
+        "https://dsharris85.github.io/My-Shopper/assets/icons/icon- 72x72.png",
+        "https://dsharris85.github.io/My-Shopper/assets/icons/icon-1024x1024.png",
+        "https://dsharris85.github.io/My-Shopper/assets/icons/icon-128x128.png",
+        "https://dsharris85.github.io/My-Shopper/assets/icons/icon-144x144.png",
+        "https://dsharris85.github.io/My-Shopper/assets/icons/icon-152x152.png",
+        "https://dsharris85.github.io/My-Shopper/assets/icons/icon-192x192.png",
+        "https://dsharris85.github.io/My-Shopper/assets/icons/icon-384x384.png",
+        "https://dsharris85.github.io/My-Shopper/assets/icons/icon-512x512.png",
+        "https://dsharris85.github.io/My-Shopper/assets/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "https://dsharris85.github.io/My-Shopper/MaterialIcons-Regular.4674f8ded773cb03e824.eot": "26fb8cecb5512223277b4d290a24492a0f09ede1",
+    "https://dsharris85.github.io/My-Shopper/MaterialIcons-Regular.5e7382c63da0098d634a.ttf": "fc05de31234e0090f7ddc28ce1b23af4026cb1da",
+    "https://dsharris85.github.io/My-Shopper/MaterialIcons-Regular.83bebaf37c09c7e1c3ee.woff": "c6c953c2ccb2ca9abb21db8dbf473b5a435f0082",
+    "https://dsharris85.github.io/My-Shopper/MaterialIcons-Regular.cff684e59ffb052d72cb.woff2": "09963592e8c953cc7e14e3fb0a5b05d5042e8435",
+    "https://dsharris85.github.io/My-Shopper/assets/fonts/Style_Script/OFL.txt": "6e015bc387c300ce5c822a853a78cdbef172dfc4",
+    "https://dsharris85.github.io/My-Shopper/assets/fonts/Style_Script/StyleScript-Regular.ttf": "38555a9e885c12c12f44397caeeeb986acba4ec1",
+    "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/OFL.txt": "c78209f0a46dc1ce8575c770b8cb1a4b96b880f9",
+    "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/README.txt": "679544bb3ac9b8de7af90265443927da241dce43",
+    "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/YanoneKaffeesatz-VariableFont_wght.ttf": "66d31b0bfb1f20b7884ab933f26791b4ac9f1cfd",
+    "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/static/YanoneKaffeesatz-Bold.ttf": "32744472469f3efb3ea6043284dedc4a5165dd72",
+    "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/static/YanoneKaffeesatz-ExtraLight.ttf": "8c9457b8b62c71a3141c699db2423cc6604e3b2b",
+    "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/static/YanoneKaffeesatz-Light.ttf": "0cffd881fab42a333c4a18d3be90cfa1ed95a1f0",
+    "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/static/YanoneKaffeesatz-Medium.ttf": "c05643375b36490747c105646bd6edc3e811d5dd",
+    "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/static/YanoneKaffeesatz-Regular.ttf": "ff4f07af668fb14097d2e0ad9d4e42957b473741",
+    "https://dsharris85.github.io/My-Shopper/assets/fonts/Yanone_Kaffeesatz/static/YanoneKaffeesatz-SemiBold.ttf": "b3614578f95c291e95ab06179ef4fe9d51658400",
+    "https://dsharris85.github.io/My-Shopper/assets/icons/icon- 72x72.png": "820f0ee16789638ea5e8f829548078fb1cf10737",
+    "https://dsharris85.github.io/My-Shopper/assets/icons/icon-1024x1024.png": "b00358b2b84111bbb1e8cec3a06a9c5aa04993e0",
+    "https://dsharris85.github.io/My-Shopper/assets/icons/icon-128x128.png": "ab1f381535adda2815850ddc1ee15b660e20f227",
+    "https://dsharris85.github.io/My-Shopper/assets/icons/icon-144x144.png": "b2e6c247ec944a9d5c2c705fb79bb4d0cdbb8d19",
+    "https://dsharris85.github.io/My-Shopper/assets/icons/icon-152x152.png": "7a590e129e4bc2fff4b60bc193a0e8513e4e9857",
+    "https://dsharris85.github.io/My-Shopper/assets/icons/icon-192x192.png": "5b4e080aeeeb43be17bff4e1bb996bdf003e86a9",
+    "https://dsharris85.github.io/My-Shopper/assets/icons/icon-384x384.png": "8fff56e3230c6ddf6088de3af04bc2731217c43e",
+    "https://dsharris85.github.io/My-Shopper/assets/icons/icon-512x512.png": "70286807e588ae8fc7e49271bfc1a06af94a0882",
+    "https://dsharris85.github.io/My-Shopper/assets/icons/icon-96x96.png": "d6abe8c0e1f33982eb3e086fcaaccc6ada152557",
+    "https://dsharris85.github.io/My-Shopper/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "https://dsharris85.github.io/My-Shopper/index.html": "899f73f30846331c1db04998aa6978d7ff9f5b5d",
+    "https://dsharris85.github.io/My-Shopper/main.9f5d66782737ffcdd838.js": "80a3086e02ef15b9a7ba7cb2e913738bb9098852",
+    "https://dsharris85.github.io/My-Shopper/manifest.webmanifest": "8149ed76f4614d3ceafb0757700c78281a9f6f9b",
+    "https://dsharris85.github.io/My-Shopper/polyfills.171cd13ed18d120e5d0c.js": "747604882a6ecb61e0da835bb0bf81546f01e06b",
+    "https://dsharris85.github.io/My-Shopper/runtime.0e49e2b53282f40c8925.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
+    "https://dsharris85.github.io/My-Shopper/scripts.15dc7c6e2e7ff57d4864.js": "dc4ca7e3a032320ff0bca2770022ba7101d66284",
+    "https://dsharris85.github.io/My-Shopper/styles.304498dd134889731569.css": "b3bfc1c1335b2e4dc5a5749605ee034f1118d38d"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
