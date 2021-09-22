@@ -84,8 +84,12 @@ export class MealService {
       var found = item.meals.find(mealID => mealID == id);
       if(found){
         item.meals = item.meals.filter(mealID => mealID != id);
-        console.log(item);
-        this.editList(item);
+        if(item.meals.length == 0){
+          //if no meals, just delete list too :P
+          this.deleteList(item.id);
+        } else {
+          this.editList(item);
+        }
       }
     });
 

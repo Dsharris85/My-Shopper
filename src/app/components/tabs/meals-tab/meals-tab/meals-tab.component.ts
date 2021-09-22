@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatExpansionPanel } from '@angular/material/expansion';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { YesNoComponent } from 'src/app/components/util/yes-no/yes-no.component';
 import { DataUpdateNotificationType } from 'src/app/models/dataNotifications';
 import { Meal, UnitLabel } from 'src/app/models/meal';
@@ -34,7 +35,7 @@ export class MealsTabComponent implements OnInit {
   @Input()
   public mobileMode: boolean;
 
-  constructor(private _formBuilder: FormBuilder, private mealService: MealService, public dialog: MatDialog, private notifierService: DataUpdateNotifierService) { 
+  constructor(private _formBuilder: FormBuilder, private mealService: MealService, public dialog: MatDialog, private notifierService: DataUpdateNotifierService, private snackBar: MatSnackBar) { 
     this.enumKeys = Object.keys(this.unitLabels);
   }
 
@@ -49,6 +50,8 @@ export class MealsTabComponent implements OnInit {
       // do something
       console.log(`deleted = ${id}`);
       this.removeMeal(id);
+      this.snackBar.open("Deleted Meal!", "X");
+
     });
 
     dialogRef.afterClosed().subscribe(() => {

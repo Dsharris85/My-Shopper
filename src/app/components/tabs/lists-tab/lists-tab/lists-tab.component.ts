@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { YesNoComponent } from 'src/app/components/util/yes-no/yes-no.component';
 import { DataUpdateNotificationType } from 'src/app/models/dataNotifications';
 import { Meal, ShoppingList } from 'src/app/models/meal';
@@ -19,7 +20,7 @@ export class ListsTabComponent implements OnInit {
   @Input()
   public mobileMode: boolean; 
 
-  constructor(private mealService: MealService, public dialog: MatDialog, private notifierService: DataUpdateNotifierService) { }
+  constructor(private mealService: MealService, public dialog: MatDialog, private notifierService: DataUpdateNotifierService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getAllMeals();
@@ -55,6 +56,7 @@ export class ListsTabComponent implements OnInit {
       // do something
       console.log(`deleted = ${id}`);
       this.deleteList(id);
+      this.snackBar.open("Deleted List!", "X");
     });
     dialogRef.afterClosed().subscribe(() => {
       // unsubscribe onAdd
