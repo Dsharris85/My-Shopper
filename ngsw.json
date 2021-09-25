@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1632346539733,
+  "timestamp": 1632604274984,
   "index": "https://dsharris85.github.io/My-Shopper/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "https://dsharris85.github.io/My-Shopper/favicon.ico",
         "https://dsharris85.github.io/My-Shopper/index.html",
-        "https://dsharris85.github.io/My-Shopper/main.9f5d66782737ffcdd838.js",
+        "https://dsharris85.github.io/My-Shopper/main.070cd8f76f5057046dcf.js",
         "https://dsharris85.github.io/My-Shopper/manifest.webmanifest",
         "https://dsharris85.github.io/My-Shopper/polyfills.171cd13ed18d120e5d0c.js",
         "https://dsharris85.github.io/My-Shopper/runtime.0e49e2b53282f40c8925.js",
@@ -53,7 +53,8 @@
         "https://dsharris85.github.io/My-Shopper/assets/icons/icon-192x192.png",
         "https://dsharris85.github.io/My-Shopper/assets/icons/icon-384x384.png",
         "https://dsharris85.github.io/My-Shopper/assets/icons/icon-512x512.png",
-        "https://dsharris85.github.io/My-Shopper/assets/icons/icon-96x96.png"
+        "https://dsharris85.github.io/My-Shopper/assets/icons/icon-96x96.png",
+        "https://dsharris85.github.io/My-Shopper/assets/social/shopper_social.png"
       ],
       "patterns": []
     }
@@ -84,9 +85,10 @@
     "https://dsharris85.github.io/My-Shopper/assets/icons/icon-384x384.png": "8fff56e3230c6ddf6088de3af04bc2731217c43e",
     "https://dsharris85.github.io/My-Shopper/assets/icons/icon-512x512.png": "70286807e588ae8fc7e49271bfc1a06af94a0882",
     "https://dsharris85.github.io/My-Shopper/assets/icons/icon-96x96.png": "d6abe8c0e1f33982eb3e086fcaaccc6ada152557",
+    "https://dsharris85.github.io/My-Shopper/assets/social/shopper_social.png": "5bf491d04d74540dec0c0552c90bcc9b9891803e",
     "https://dsharris85.github.io/My-Shopper/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://dsharris85.github.io/My-Shopper/index.html": "899f73f30846331c1db04998aa6978d7ff9f5b5d",
-    "https://dsharris85.github.io/My-Shopper/main.9f5d66782737ffcdd838.js": "80a3086e02ef15b9a7ba7cb2e913738bb9098852",
+    "https://dsharris85.github.io/My-Shopper/index.html": "1959817e68d175e2fae110a6dd29c1bc48a1c8ca",
+    "https://dsharris85.github.io/My-Shopper/main.070cd8f76f5057046dcf.js": "f24e1c5e02bd8af9a1f8caa83ca170eb992f3890",
     "https://dsharris85.github.io/My-Shopper/manifest.webmanifest": "8149ed76f4614d3ceafb0757700c78281a9f6f9b",
     "https://dsharris85.github.io/My-Shopper/polyfills.171cd13ed18d120e5d0c.js": "747604882a6ecb61e0da835bb0bf81546f01e06b",
     "https://dsharris85.github.io/My-Shopper/runtime.0e49e2b53282f40c8925.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
