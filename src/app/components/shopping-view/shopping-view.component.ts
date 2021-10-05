@@ -55,7 +55,7 @@ export class ShoppingViewComponent implements OnInit {
   
   public sortMealsIntoShoppingListTest() {
     this.mealList.mealObjects.forEach(meal => {
-      console.log('meal', meal);
+      // console.log('meal', meal);
       // console.log(`meal=`, meal);
       if(meal){
         meal.ingredients.forEach(ingredient => {
@@ -72,7 +72,7 @@ export class ShoppingViewComponent implements OnInit {
                   this.shoppingList.find(i => i.name == ingredient.name).unitAmount += toAdd;
                 } catch(error) {
                   // convertError = true;
-                  console.log('error', ingredient, found);
+                  // console.log('error', ingredient, found);
                   this.shoppingList.push(ingredient);
                 }
                 
@@ -93,11 +93,13 @@ export class ShoppingViewComponent implements OnInit {
 
   public sortMealsIntoShoppingList() {
     this.mealList.mealObjects.forEach(meal => {
-      console.log('meal', meal);
+      // console.log('meal', meal);
       // console.log(`meal=`, meal);
       if(meal){
         meal.ingredients.forEach(ingredient => {
           var found = this.shoppingList.find(i => i.name == ingredient.name);
+          // console.log(`ingredient/lists in sorting:`, ingredient, this.shoppingList, this.mealList);
+          // console.log(`found in sorting:`, found);
           // if already need to buy item, just add amount to same obj
           if(found){
             if(found.unitLabel == ingredient.unitLabel){
@@ -109,7 +111,7 @@ export class ShoppingViewComponent implements OnInit {
                 this.shoppingList.find(i => i.name == ingredient.name).unitAmount += toAdd;
               } catch(error) {
                 // convertError = true;
-                console.log('error', ingredient, found);
+                // console.log('error', ingredient, found);
                 this.shoppingList.push(ingredient);
               }
               
@@ -129,7 +131,7 @@ export class ShoppingViewComponent implements OnInit {
   addDifferentUnitLabels(found: Ingredient, ingredient: Ingredient): number {
     var diff = 0;
     diff = convert(ingredient.unitAmount).from(ingredient.unitLabel.toString()).to(found.unitLabel.toString());
-    
+    // console.log(`diff =`, diff);
     return diff;
   }
 
@@ -138,9 +140,9 @@ export class ShoppingViewComponent implements OnInit {
     this.mealList.meals.forEach(mealID => {
       // console.log(mealID);
       var found = this.mealService.getMeal(mealID);
-      console.log('found', found);
+      // console.log('found', found);
       this.mealList.mealObjects.push(found);
-      console.log(this.mealList);
+      // console.log(this.mealList);
 
     });
     // console.log(this.mealList);
@@ -163,10 +165,11 @@ export class ShoppingViewComponent implements OnInit {
 
   public getSections(section: StoreSection): Ingredient[] {
     
-    console.log("section:", section)
+    // console.log("section:", section)
+    // console.log(`list here`, this.shoppingList);
     // premake on init, and just grab so don't need filter everytime
     var rtn = this.shoppingList.filter(ingredient => ingredient.sectionOfStore == section);
-    console.log(rtn)
+    // console.log(rtn)
     return rtn;
   }
 

@@ -1,12 +1,13 @@
 <div class="main">
     <div class="flex-container">
         <h3 [ngClass]="this.mobile ? 'header-mobile' : 'header-norm'">{{this.mealList.name | titlecase}}:</h3>
+        <!-- <span>(Coming Soon)</span> -->
         <mat-selection-list [class.mat-elevation-z3]="true" #selector (selectionChange)="this.swapCheck(selector.selectedOptions.selected)" style="width: 90%; margin: 1rem auto; margin-top: 0;">
-           
+
             <!-- <mat-list-option #option *ngFor="let ingredient of this.shoppingList">
                 <div [ngClass]="option.selected ? 'checked' : 'unchecked'">{{ingredient.unitAmount}} {{ingredient.unitLabel || ''}} {{ingredient.name | titlecase}}</div>
             </mat-list-option> -->
-            
+
             <div mat-subheader *ngIf="this.getSections(this.storeSections.FruitVeg).length > 0">Fruit & Veggies</div>
             <mat-list-option #fruits *ngFor="let ingredient of this.getSections(this.storeSections.FruitVeg)">
                 <div [ngClass]="fruits.selected ? 'checked' : 'unchecked'">{{ingredient.unitAmount}} {{ingredient.unitLabel || ''}} {{ingredient.name | titlecase}}</div>
@@ -18,7 +19,7 @@
                 <div [ngClass]="frozens.selected ? 'checked' : 'unchecked'">{{ingredient.unitAmount}} {{ingredient.unitLabel || ''}} {{ingredient.name | titlecase}}</div>
             </mat-list-option>
             <mat-divider *ngIf="this.getSections(this.storeSections.Frozens).length > 0"></mat-divider>
-            
+
             <div mat-subheader *ngIf="this.getSections(this.storeSections.Breads).length > 0">Breads</div>
             <mat-list-option #breads *ngFor="let ingredient of this.getSections(this.storeSections.Breads)">
                 <div [ngClass]="breads.selected ? 'checked' : 'unchecked'">{{ingredient.unitAmount}} {{ingredient.unitLabel || ''}} {{ingredient.name | titlecase}}</div>
@@ -36,7 +37,7 @@
                 <div [ngClass]="dairys.selected ? 'checked' : 'unchecked'">{{ingredient.unitAmount}} {{ingredient.unitLabel || ''}} {{ingredient.name | titlecase}}</div>
             </mat-list-option>
             <mat-divider *ngIf="this.getSections(this.storeSections.Dairy).length > 0"></mat-divider>
-            
+
             <div mat-subheader *ngIf="this.getSections(this.storeSections.Snacks).length > 0">Snacks</div>
             <mat-list-option #snacks *ngFor="let ingredient of this.getSections(this.storeSections.Snacks)">
                 <div [ngClass]="snacks.selected ? 'checked' : 'unchecked'">{{ingredient.unitAmount}} {{ingredient.unitLabel || ''}} {{ingredient.name | titlecase}}</div>
@@ -58,7 +59,7 @@
 
     <div class="flex-container">
         <h3 [ngClass]="this.mobile ? 'header-mobile' : 'header-norm'">Meals:</h3>
-        
+
         <div [class.mat-elevation-z3]="true" style="width: 90%; margin: 0 auto;">
             <div *ngFor="let meal of this.mealList.mealObjects" class="meals">
                 <span *ngIf="meal">{{meal.name | titlecase}}</span>

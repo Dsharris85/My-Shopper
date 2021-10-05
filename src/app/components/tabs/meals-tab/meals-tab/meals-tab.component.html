@@ -9,11 +9,10 @@ flex-direction: column;" class="animated-bg-slow">
         <!-- <mat-accordion style="flex: 1; overflow: auto; max-height: calc(100vh - 370px);"> -->
         <div style="width: 90%;
         overflow: auto;
-        margin: 0 auto;" [class.mat-elevation-z3]="true"
-        [ngStyle]="{'height': (this.mobileMode) ? 'calc(100% - 100px)' : 'calc(100% - 150px)'}">
+        margin: 0 auto;" [class.mat-elevation-z3]="true" [ngStyle]="{'height': (this.mobileMode) ? 'calc(100% - 100px)' : 'calc(100% - 250px)'}">
             <app-empty-error *ngIf="this.allMeals.length == 0" [emptyItem]="'meals'"></app-empty-error>
             <mat-accordion>
-                <mat-expansion-panel  #mep="matExpansionPanel" *ngFor="let meal of this.allMeals" (opened)="this.panelOpened(meal.id)" (closed)="this.panelClosed(meal.id)">
+                <mat-expansion-panel #mep="matExpansionPanel" *ngFor="let meal of this.allMeals" (opened)="this.panelOpened(meal.id)" (closed)="this.panelClosed(meal.id)">
                     <mat-expansion-panel-header style="background: white;">
                         <mat-panel-title>
                             <div style="white-space: nowrap;
@@ -33,23 +32,23 @@ flex-direction: column;" class="animated-bg-slow">
 
                     <div *ngIf="!meal.editing">
                         <div style="display: flex; width: 100%; justify-content: space-evenly;" [ngStyle]="{'flex-direction': (this.mobileMode) ? 'column' : 'row'}">
-                            <div  [ngStyle]="{'width': (this.mobileMode) ? '100%' : '30%'}" style="font-size: 1rem;" *ngIf="meal.description == ''">
-                            
+                            <div [ngStyle]="{'width': (this.mobileMode) ? '100%' : '30%'}" style="font-size: 1rem;" *ngIf="meal.description == ''">
+
                                 {{meal.description}}
-                            
+
                             </div>
-                            <br><br>    
+                            <br><br>
                             <mat-divider></mat-divider>
                             <br><br>
-                            <div  [ngStyle]="{'width': (this.mobileMode || (meal.recipe && meal.recipe[0] && meal.recipe[0]) == '') ? '100%' : '30%'}" [class.mat-elevation-z3]="true" style="padding: 1rem;">
+                            <div [ngStyle]="{'width': (this.mobileMode || (meal.recipe && meal.recipe[0] && meal.recipe[0]) == '') ? '100%' : '30%'}" [class.mat-elevation-z3]="true" style="padding: 1rem;">
                                 <div *ngFor="let ingredient of meal.ingredients" class="ingredient">
                                     {{ingredient.unitAmount}} {{ingredient.unitLabel}} {{ingredient.name | titlecase}}
                                 </div>
                             </div>
-                            <br><br>    
+                            <br><br>
                             <mat-divider></mat-divider>
-                            <div  [ngStyle]="{'width': (this.mobileMode) ? '100%' : '60%'}" *ngIf="meal.recipe && meal.recipe[0] && meal.recipe[0] != ''" [class.mat-elevation-z3]="true">
-                            <!-- <div  [ngStyle]="{'width': (this.mobileMode) ? '100%' : '70%'}" *ngIf="meal.recipe[0] != ''"> -->
+                            <div [ngStyle]="{'width': (this.mobileMode) ? '100%' : '60%'}" *ngIf="meal.recipe && meal.recipe[0] && meal.recipe[0] != ''" [class.mat-elevation-z3]="true">
+                                <!-- <div  [ngStyle]="{'width': (this.mobileMode) ? '100%' : '70%'}" *ngIf="meal.recipe[0] != ''"> -->
                                 <div *ngFor="let step of meal.recipe; let i = index;" style="margin-top: 2rem;">
                                     <div style="text-align: center; font-weight: bold; font-family: 'Style Script', cursive; font-size: 1.5rem; margin-bottom: 0.5rem;">Step {{i+1}}:</div>
                                     <div class="ingredient">{{step}}</div>
@@ -59,13 +58,13 @@ flex-direction: column;" class="animated-bg-slow">
                                 <mat-divider></mat-divider>
                             </div>
                         </div>
-                        
+
                         <div [ngClass]="this.mobileMode ? 'edit-window-mobile' : 'edit-window'" [class.mat-elevation-z3]="true">
                             <button mat-raised-button color="primary" aria-label="Edit" (click)="this.editMeal(meal.id)" [ngClass]="this.mobileMode ? 'edit-btn-mobile' : 'edit-btn'">
                                 <mat-icon>edit</mat-icon>
                                 Edit Meal
                             </button>
-                            <button mat-raised-button color="accent" aria-label="Edit"  [ngClass]="this.mobileMode ? 'edit-btn-mobile' : 'edit-btn'">
+                            <button mat-raised-button color="accent" aria-label="Edit" [ngClass]="this.mobileMode ? 'edit-btn-mobile' : 'edit-btn'">
                                 <mat-icon>visibility</mat-icon>
                                 <a [routerLink]="['/meal', meal.id]" style="color: black;">View Meal </a>
                             </button>

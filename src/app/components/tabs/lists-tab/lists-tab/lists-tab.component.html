@@ -8,8 +8,7 @@ flex-direction: column;" class="animated-bg-slow">
         <h3 [ngClass]="this.mobileMode ? 'header-mobile' : 'header-norm'">My Shopping Lists</h3>
         <div style=" width: 90%;
         overflow: auto;
-        margin: 0 auto;" [class.mat-elevation-z3]="true" 
-        [ngStyle]="{'height': (this.mobileMode) ? 'calc(100% - 100px)' : 'calc(100% - 150px)'}">
+        margin: 0 auto;" [class.mat-elevation-z3]="true" [ngStyle]="{'height': (this.mobileMode) ? 'calc(100% - 100px)' : 'calc(100% - 250px)'}">
 
             <app-empty-error *ngIf="this.allLists.length == 0" [emptyItem]="'shopping lists'"></app-empty-error>
             <mat-accordion>
@@ -22,10 +21,10 @@ flex-direction: column;" class="animated-bg-slow">
                             {{list.description | titlecase}}
                         </mat-panel-description>
                     </mat-expansion-panel-header>
-                   
-                    <br>  
+
+                    <br>
                     <div [class.mat-elevation-z3]="true" style="padding: 1rem;">
-                        <div *ngFor="let meal of list.mealObjects;" class="meal" >
+                        <div *ngFor="let meal of list.mealObjects;" class="meal">
                             <div *ngIf="meal">{{meal.name | titlecase}}</div>
                         </div>
                     </div>
